@@ -1,0 +1,15 @@
+IndexIgnore *
+
+RewriteEngine On
+
+#Product Purchase Webhook
+RewriteRule ^product-purchase$ api.php?endpoint=product-purchase [L]
+
+#Cancelation Webhook
+RewriteRule ^cancellation$ api.php?endpoint=cancellation [L]
+
+#Login Webhook
+RewriteRule ^login$ api.php?endpoint=login [QSA,L]
+
+#Logout Webhook
+RewriteRule ^logout$ api.php?endpoint=logout [QSA,L]
