@@ -151,7 +151,7 @@ if ($_SESSION['usertype'] != 'Client') {
 
             </div>
         </section>
-        <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+        <script src="node_modules/jquery/dist/jquery.min.js"></script>
         <script src="js/main.js"></script>
 
 

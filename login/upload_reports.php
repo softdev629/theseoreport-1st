@@ -205,7 +205,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'add') {
 
             </div>
         </section>
-        <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+        <script src="node_modules/jquery/dist/jquery.min.js"></script>
         <script src="js/main.js"></script>
         <!-- footer -->
         <?php include("includes/footer.php"); ?>

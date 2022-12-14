@@ -116,7 +116,7 @@ if ($_SESSION['loginType'] != $BASIC_LOGIN_TYPE) {
         </section>
 
         <script type="text/javascript" src="js/main.js"></script>
-        <script type="text/javascript" src="vendor/jquery/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
         <!-- footer -->
         <?php include("includes/footer.php"); ?>
         <!-- footer -->
