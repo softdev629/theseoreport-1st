@@ -15,12 +15,12 @@ $VENDASTA_SSO_LOGIN_TYPE = 'vendasta-sso';
 $base_url = 'https://' . $_SERVER['HTTP_HOST'];
 $website_url = "$base_url/login";
 
-$ACCOUNT_ID = 'AG-H5ZDNTTPP6';
-$PRODUCT_ID = 'MP-HB4MBV4S5RFBM2Z7MQC6VSBZD2JB4WLJ';
+$ACCOUNT_ID = 'AG-2465H6KG2P';
+$PRODUCT_ID = 'MP-6KVJZT5MMFPJWQCSQ7H38LBV586Z8X55';
 $VENDASTA_DATA_URL = '';
 
-$oauth_client_id = 'a7d042a7-20ff-4bb9-92f4-7c7af826fc61';
-$oauth_client_secret = '3Xelv8FoDF0V6Ex1wZHooQjUfzQ13Q6UbUXM3coyTr';
+$oauth_client_id = '655e73c4-607b-4b86-a08d-c99de85b36e3';
+$oauth_client_secret = 'VlM9izbsB49voikHhQmeiY6YE1nhyes6xzJpL6YNsf';
 $authorization_url = 'https://sso-api-prod.apigateway.co/oauth2/auth';
 $oauth_redirect_url = "$base_url/login/sso-login.php";
 $oauth_access_token_endpoint_url = 'https://sso-api-prod.apigateway.co/oauth2/token';
