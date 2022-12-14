@@ -1,6 +1,6 @@
 <?php
 
-if (!array_key_exists($COOKIE_NAME, $_COOKIE)) {
+if (!array_key_exists($COOKIE_NAME, $_COOKIE) || $_COOKIE[$COOKIE_NAME] == '') {
     return;
 }
 
