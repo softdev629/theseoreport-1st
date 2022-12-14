@@ -110,4 +110,15 @@ $i--;
 	</script>
 	<!-- //calendar -->
 </body>
+
+<?php if ($VENDASTA_DATA_URL != ''): ?>
+
+<script src="https://www.cdnstyles.com/static/product_navbar/v1/product_navbar.js"
+    data-url="<?= $VENDASTA_DATA_URL ?>"
+    data-account-id="<?= $ACCOUNT_ID ?>"
+    data-app-id="<?= $PRODUCT_ID ?>"
+    target-element-class="top-nav-element">
+</script>
+
+<?php endif; ?>
 </html>

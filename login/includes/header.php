@@ -24,7 +24,7 @@
 <body>
 <section id="container">
 <!--header start-->
-<header class="header fixed-top clearfix">
+<header class="top-nav-element header fixed-top clearfix">
 <!--logo start-->
 <div class="brand">
     <img src="<?PHP echo $website_url; ?>/images/logo.png" style="width:65%;" />
@@ -33,7 +33,6 @@
     </div>-->
 </div>
 <!--logo end-->
-
 
 <?PHP 
 $profile=mysqli_query($link,"select * from rl_login where id='" .$_SESSION['UID']. "' and status=1 ");
@@ -53,20 +52,20 @@ else
     <ul class="nav pull-right top-menu">
         
         <!-- user login dropdown start-->
-        <li class="dropdown">
-            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                <img alt="" src="<?PHP echo $website_url; ?>/images/userpic/<?PHP echo $pimg; ?>" width="500" >
-                <span class="username"><?PHP echo $_SESSION['name']; ?></span>
-                <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu extended logout">
-                <?php if($_SESSION['loginType'] != 'sso') : ?>
+        <?php if($_SESSION['loginType'] != $VENDASTA_SSO_LOGIN_TYPE) : ?>
+            <li class="dropdown">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                    <img alt="" src="<?PHP echo $website_url; ?>/images/userpic/<?PHP echo $pimg; ?>" width="500" >
+                    <span class="username"><?PHP echo $_SESSION['name']; ?></span>
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu extended logout">
                     <li><a href="profile.php"><i class=" fa fa-suitcase"></i>Profile</a></li>
                     <li><a href="change_password.php"><i class="fa fa-cog"></i> Change Password</a></li>
-                <?php endif; ?>
-                <li><a href="<?PHP echo $website_url; ?>/logout.php"><i class="fa fa-key"></i> Log Out</a></li>
-            </ul>
-        </li>
+                    <li><a href="<?PHP echo $website_url; ?>/logout.php"><i class="fa fa-key"></i> Log Out</a></li>
+                </ul>
+            </li>
+        <?php endif; ?>
         <!-- user login dropdown end -->
        
     </ul>
