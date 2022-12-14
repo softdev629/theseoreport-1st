@@ -1,13 +1,15 @@
 <?php
 
-if (!array_key_exists($COOKIE_NAME, $_COOKIE) || $_COOKIE[$COOKIE_NAME] == '') {
+if (!array_key_exists($COOKIE_NAME, $_COOKIE) || $_COOKIE[$COOKIE_NAME] == '[logged-out]') {
     return;
 }
 
 $cookie = json_decode(base64_decode($_COOKIE[$COOKIE_NAME]));
 
-if (!is_object($cookie)
-    || !property_exists($cookie, 'expiry')) {
+if (
+    !is_object($cookie)
+    || !property_exists($cookie, 'expiry')
+) {
     throw new Exception('something-went-wrong:malformed-cookie');
 }
 
