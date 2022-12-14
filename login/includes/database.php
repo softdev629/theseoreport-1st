@@ -5,10 +5,10 @@ $user = 'theseore_myusr32';
 $password = 'QEV3}ybRWN~b';
 $database = 'theseore_reportsl_projects';
 
-$host = '127.0.0.1';
-$user = 'root';
-$password = '123';
-$database = 'app';
+// $host = '127.0.0.1';
+// $user = 'root';
+// $password = '123';
+// $database = 'app';
 
 $link = mysqli_connect(
     $host,
