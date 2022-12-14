@@ -102,13 +102,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     <div style="margin:20px; color:#fb6f6b;"><?= $message ?></span>
 
-                        <div class="wrap-input100 validate-input m-b-23" data-validate="Username is required">
+                        <!--
+
+                            class="validate-input"
+                            data-validate="Username is required"
+                            data-validate="Password is required"
+
+                        -->
+
+                        <div class="wrap-input100 m-b-23">
                             <span class="label-input100">Username</span>
                             <input class="input100" type="text" name="username" placeholder="Type your username">
                             <span class="focus-input100" data-symbol="&#xf206;"></span>
                         </div>
 
-                        <div class="wrap-input100 validate-input" data-validate="Password is required">
+                        <div class="wrap-input100">
                             <span class="label-input100">Password</span>
                             <input class="input100" type="password" name="password" placeholder="Type your password">
                             <span class="focus-input100" data-symbol="&#xf190;"></span>
