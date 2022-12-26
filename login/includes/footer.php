@@ -48,13 +48,13 @@ $i = 12;
 while ($i >= 0) {
 $ym = date('Y-m', strtotime("-$i month"));
 $yms [$ym] = $ym;
-$graph_client=mysqli_query($link,"sELECT * FROM rl_login WHERE userType = 'Client' AND dateAdded LIKE '%".$ym."%'");
+$graph_client=mysqli_query($link,"SELECT * FROM rl_login WHERE userType = 'Client' AND dateAdded LIKE '%".$ym."%'");
 $graph_client_numee=mysqli_num_rows($graph_client);
 
-$graph_report=mysqli_query($link,"sELECT * FROM rl_rankings_report WHERE dateadded LIKE '%".$ym."%'");
+$graph_report=mysqli_query($link,"SELECT * FROM rl_report WHERE dateAdded LIKE '%".$ym."%'");
 $graph_report_numee=mysqli_num_rows($graph_report);
 
-$graph_report_unique=mysqli_query($link,"sELECT DISTINCT pid FROM rl_rankings_report WHERE dateadded LIKE '%".$ym."%'");
+$graph_report_unique=mysqli_query($link,"SELECT DISTINCT pid FROM rl_report WHERE dateAdded LIKE '%".$ym."%'");
 $graph_report_unique_numee=mysqli_num_rows($graph_report_unique);
 ?>
 			{period: '<?PHP echo $ym; ?>', iphone: <?PHP echo $graph_client_numee; ?>, ipad: <?PHP echo $graph_report_numee; ?>, itouch: <?PHP echo $graph_report_unique_numee; ?>},
@@ -110,7 +110,6 @@ $i--;
 	</script>
 	<!-- //calendar -->
 </body>
-
 <?php if ($VENDASTA_DATA_URL != ''): ?>
 
 <script src="https://www.cdnstyles.com/static/product_navbar/v1/product_navbar.js"

@@ -22,7 +22,7 @@ $VENDASTA_DATA_URL = '';
 $oauth_client_id = '655e73c4-607b-4b86-a08d-c99de85b36e3';
 $oauth_client_secret = 'VlM9izbsB49voikHhQmeiY6YE1nhyes6xzJpL6YNsf';
 $authorization_url = 'https://sso-api-prod.apigateway.co/oauth2/auth';
-$oauth_redirect_url = "$base_url/login/sso-login.php";
+$oauth_redirect_url = "https://theseoreports.com/login/sso-login.php";
 $oauth_access_token_endpoint_url = 'https://sso-api-prod.apigateway.co/oauth2/token';
 $oauth_resource_owner_details_endpoint_url = 'https://sso-api-prod.apigateway.co/oauth2/user-info';
 
