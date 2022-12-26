@@ -1,6 +1,7 @@
 <?PHP
 include("includes/common.php");
 include("includes/database.php");
+session_start();
 $pid=$_GET['pid'];
 $cid=$_SESSION['UID'];
 

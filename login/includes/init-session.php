@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 $cookie = json_decode(base64_decode($_COOKIE[$COOKIE_NAME]));
 

@@ -1,9 +1,9 @@
 <?PHP
 include("includes/common.php");
 include("includes/database.php");
+session_start();
 $pid=$_GET['pid'];
 $cid=$_SESSION['UID'];
-
 $sql=mysqli_query($link,"select * from rl_projects where id='".$pid."'");
 $sql_data=mysqli_fetch_array($sql);
 
@@ -30,7 +30,7 @@ if($pid=='')
   </thead>
   <tbody>
     <?PHP 
-$qq="select * from rl_report where pid='".$pid."' and $cid='".$_SESSION['UID']."' and reportname='Linking Report' order by reportmonth1 desc";
+$qq="select * from rl_report where pid='".$pid."' and cid='".$_SESSION['UID']."' and reportname='Linking Report' order by reportmonth1 desc";
 $user=mysqli_query($link,$qq);
 $user_numee=mysqli_num_rows($user);
 $i=1;
