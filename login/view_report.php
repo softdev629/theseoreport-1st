@@ -16,117 +16,122 @@ if ($_SESSION['usertype'] != 'Client') {
 <!DOCTYPE html>
 
 <head>
-    <title>Upload Report </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/main.css">
+  <title>Upload Report </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/main.css">
 
-    <script>
-        function getXMLHTTP() { //fuction to return the xml http object
-            var xmlhttp = false;
-            try {
-                xmlhttp = new XMLHttpRequest();
-            } catch (e) {
-                try {
-                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-                } catch (e) {
-                    try {
-                        xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
-                    } catch (e1) {
-                        xmlhttp = false;
-                    }
-                }
-            }
-
-            return xmlhttp;
+  <script>
+  function getXMLHTTP() { //fuction to return the xml http object
+    var xmlhttp = false;
+    try {
+      xmlhttp = new XMLHttpRequest();
+    } catch (e) {
+      try {
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+      } catch (e) {
+        try {
+          xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+        } catch (e1) {
+          xmlhttp = false;
         }
+      }
+    }
 
-        function getProject(strURL) {
-            var req = getXMLHTTP();
-            if (req) {
-                req.onreadystatechange = function() {
-                    if (req.readyState == 4) {
-                        if (req.status == 200) {
-                            document.getElementById('projectdiv').innerHTML = req.responseText;
-                        } else {
-                            alert("There was a problem while using XMLHTTP:\n" + req.statusText);
-                        }
-                    }
-                }
-                req.open("GET", strURL, true);
-                req.send(null);
-            }
+    return xmlhttp;
+  }
+
+  function getProject(strURL) {
+    var req = getXMLHTTP();
+    if (req) {
+      req.onreadystatechange = function() {
+        if (req.readyState == 4) {
+          if (req.status == 200) {
+            document.getElementById('projectdiv').innerHTML = req.responseText;
+          } else {
+            alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+          }
         }
+      }
+      req.open("GET", strURL, true);
+      req.send();
+    }
+  }
 
-        function getProjectDate(strURL) {
-            var req = getXMLHTTP();
-            if (req) {
-                req.onreadystatechange = function() {
-                    if (req.readyState == 4) {
-                        if (req.status == 200) {
-                            document.getElementById('projectdatediv').innerHTML = req.responseText;
-                        } else {
-                            alert("There was a problem while using XMLHTTP:\n" + req.statusText);
-                        }
-                    }
-                }
-                req.open("GET", strURL, true);
-                req.send(null);
-            }
+  function getProjectDate(strURL) {
+    var req = getXMLHTTP();
+    if (req) {
+      req.onreadystatechange = function() {
+        if (req.readyState == 4) {
+          if (req.status == 200) {
+            document.getElementById('projectdatediv').innerHTML = req.responseText;
+          } else {
+            alert("There was a problem while using XMLHTTP:\n" + req.statusText);
+          }
         }
-    </script>
+      }
+      req.open("GET", strURL, true);
+      req.send();
+    }
+  }
+  </script>
 
-    <?php include("includes/header.php"); ?>
-    <!--header end-->
-    <!--sidebar start-->
+  <?php include("includes/header.php"); ?>
+  <!--header end-->
+  <!--sidebar start-->
 
-    <?php include("includes/left.php"); ?>
+  <?php include("includes/left.php"); ?>
 
-    <!--sidebar end-->
-    <!--main content start-->
-    <section id="main-content">
-        <section class="wrapper">
-            <div class="table-agile-info">
+  <!--sidebar end-->
+  <!--main content start-->
+  <section id="main-content">
+    <section class="wrapper">
+      <div class="table-agile-info">
 
-                <div class="panel panel-default">
-                    <div class="panel-heading">View Report</div>
-                    <?PHP
+        <div class="panel panel-default">
+          <div class="panel-heading">View Report</div>
+          <?PHP
                     if ($_SESSION['usertype'] == 'Client') {
                     ?>
-                        <form name="search1" method="get">
+          <form name="search1" method="get">
 
 
-                            <div class="row w3-res-tb" style="margin-left:5px; min-height:400px;">
+            <div class="row w3-res-tb" style="margin-left:5px; min-height:400px;">
 
-                                <div id="projectdiv" style="float:left;margin-bottom:20px;">
-                                    <select class="input-sm form-control w-sm inline v-middle" name="pid" style="width:215px;" onchange="getProjectDate('findprojectdateclient.php?pid='+this.value)">
-                                        <option value=''> &nbsp; &nbsp; &nbsp; - - &nbsp; Select Project Name &nbsp; - - </option>
-                                        <?PHP
+              <div id="projectdiv" style="float:left;margin-bottom:20px;">
+                <select class="input-sm form-control w-sm inline v-middle" name="pid" style="width:215px;"
+                  onchange="getProjectDate('findprojectdateclient.php?pid='+this.value)">
+                  <option value=''> &nbsp; &nbsp; &nbsp; - - &nbsp; Select Project Name &nbsp; - - </option>
+                  <?PHP
                                         $cli = mysqli_query($link, "select * from rl_projects where cid='" . $_SESSION['UID'] . "'");
                                         while ($cli_data = mysqli_fetch_array($cli)) {
                                         ?>
-                                            <option value="<?PHP echo $cli_data['id']; ?>"><?PHP echo $cli_data['projectName']; ?> </option>
-                                        <?PHP } ?>
-                                    </select>
+                  <option value="<?PHP echo $cli_data['id']; ?>">
+                    <?PHP echo $cli_data['projectName']; ?>
+                  </option>
+                  <?PHP } ?>
+                </select>
 
-                                </div>
+              </div>
 
-                                <div class="clearfix"></div>
+              <div class="clearfix"></div>
 
-                                <div id="projectdatediv" style="margin-bottom:20px;"></div>
+              <div id="projectdatediv" style="margin-bottom:20px;"></div>
 
-                            </div>
+            </div>
 
-                        </form>
-                    <?PHP } ?>
-
-
-                    <div class="table-responsive">
+          </form>
+          <?PHP } ?>
 
 
-                        <div align="center" style="margin:15px;" class="text-success"><?PHP echo $message; ?></div>
+          <div class="table-responsive">
 
-                    </div>
-                    <!--<footer class="panel-footer">
+
+            <div align="center" style="margin:15px;" class="text-success">
+              <?PHP echo $message; ?>
+            </div>
+
+          </div>
+          <!--<footer class="panel-footer">
       <div class="row">
         
         <div class="col-sm-5 text-center">
@@ -144,12 +149,12 @@ if ($_SESSION['usertype'] != 'Client') {
         </div>
       </div>
     </footer>-->
-                </div>
+        </div>
 
-            </div>
-        </section>
-        <script src="node_modules/jquery/dist/jquery.min.js"></script>
-        <script src="js/main.js"></script>
-        <!-- footer -->
-        <?php include("includes/footer.php"); ?>
-        <!-- footer -->
+      </div>
+    </section>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+    <!-- footer -->
+    <?php include("includes/footer.php"); ?>
+    <!-- footer -->
