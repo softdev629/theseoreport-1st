@@ -75,7 +75,7 @@ $user = $rows[0];
 
 $_SESSION['username'] = $user['email'];
 $_SESSION['UID'] = $user['id'];
-// die(var_dump($_SESSION));
 $_SESSION['name'] = $user['name'];
 $_SESSION['usertype'] = $user['userType'];
 $_SESSION['loginType'] = $cookie->login_type;
+$_SESSION['account_id'] = $_COOKIE['account_id'];

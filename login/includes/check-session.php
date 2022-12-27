@@ -28,7 +28,7 @@ if ($cookie->login_type == $VENDASTA_SSO_LOGIN_TYPE) {
 
     $provider = new \League\OAuth2\Client\Provider\GenericProvider([
         'urlResourceOwnerDetails' => $oauth_resource_owner_details_endpoint_url,
-        'urlAuthorize' => "$authorization_url?account_id=$ACCOUNT_ID",
+        'urlAuthorize' => "$authorization_url?account_id=".$_SESSION['account_id'],
         'urlAccessToken' => $oauth_access_token_endpoint_url,
         'clientSecret' => $oauth_client_secret,
         'clientId' => $oauth_client_id,

@@ -4,6 +4,15 @@ session_start();
 require_once __DIR__ . '/includes/common.php';
 require_once __DIR__ . '/includes/database.php';
 
+if(array_key_exists('account_id', $_GET)) {
+  
+  $expiry = (new DateTimeImmutable())
+            ->modify("+$HOURS_UNTIL_COOKIE_EXPIRES hours")
+            ->getTimestamp();
+  
+  setcookie('account_id', $_GET['account_id'], $expiry, '', $_SERVER['HTTP_HOST'], true, true);
+}
+
 require_once __DIR__ . '/includes/check-session.php';
 require_once __DIR__ . '/includes/init-session.php';
 
