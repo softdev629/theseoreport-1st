@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 $cookie = json_decode(base64_decode($_COOKIE[$COOKIE_NAME]));
 
@@ -76,6 +75,7 @@ $user = $rows[0];
 
 $_SESSION['username'] = $user['email'];
 $_SESSION['UID'] = $user['id'];
+// die(var_dump($_SESSION));
 $_SESSION['name'] = $user['name'];
 $_SESSION['usertype'] = $user['userType'];
 $_SESSION['loginType'] = $cookie->login_type;

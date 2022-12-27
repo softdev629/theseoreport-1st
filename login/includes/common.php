@@ -12,7 +12,7 @@ $DASHBOARD_PAGE_PATH = '/login/dashboard.php';
 $BASIC_LOGIN_TYPE = 'basic';
 $VENDASTA_SSO_LOGIN_TYPE = 'vendasta-sso';
 
-$base_url = 'https://' . $_SERVER['HTTP_HOST'];
+$base_url = 'http://' . $_SERVER['HTTP_HOST'];
 $website_url = "$base_url/login";
 
 $ACCOUNT_ID = 'AG-2465H6KG2P';

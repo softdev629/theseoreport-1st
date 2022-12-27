@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 require_once __DIR__ . '/includes/common.php';
 require_once __DIR__ . '/includes/database.php';
@@ -83,106 +84,120 @@ if (isset($_GET['msg']) && $_GET['msg'] == 'exist') {
 <!DOCTYPE html>
 
 <head>
-    <title>Project </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/main.css">
+  <title>Project </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/main.css">
 
 
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <link href="css/dcalendar.picker.css" rel="stylesheet" type="text/css">
-    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link href="css/dcalendar.picker.css" rel="stylesheet" type="text/css">
+  <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 
-    <style>
-        .container {
-            margin: 150px auto 30px auto;
-            max-width: 300px;
-        }
-    </style>
-    <?php include("includes/header.php"); ?>
-    <!--header end-->
-    <!--sidebar start-->
+  <style>
+  .container {
+    margin: 150px auto 30px auto;
+    max-width: 300px;
+  }
+  </style>
+  <?php include("includes/header.php"); ?>
+  <!--header end-->
+  <!--sidebar start-->
 
-    <?php include("includes/left.php"); ?>
+  <?php include("includes/left.php"); ?>
 
-    <!--sidebar end-->
-    <!--main content start-->
-    <section id="main-content">
-        <section class="wrapper">
-            <div class="table-agile-info">
+  <!--sidebar end-->
+  <!--main content start-->
+  <section id="main-content">
+    <section class="wrapper">
+      <div class="table-agile-info">
 
-                <?PHP if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'show') { ?>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Projects</div>
-                        <?php /*?><div class="row w3-res-tb">
-      <div class="col-sm-5 m-b-xs" style="margin-bottom:20px;">
-        <form action="project.php">
-    <input type="hidden" name="mode" value="add">
-    <button type="submit" class="btn btn-info">Add New Project</button>
-    </form>
-        
-      </div>
-    
-    <div class="col-sm-4" style="margin-bottom:20px;">
-    <div class="form-group">
-    <form name="search1" method="get" action="project.php">
-        
-        <input type="hidden" name="mode" value="show">
-        <input type="hidden" name="searchkeyword" value="<?PHP echo @$_REQUEST['searchkeyword'] ?>">
-        
-        <select class="input-sm form-control w-sm inline v-middle" name="clientid" style="width:225px;">
-          <option value=''> &nbsp; &nbsp; &nbsp; - - Select Client Name - - </option>
-          <option value=''> All </option>
-          <?PHP 
+        <?PHP if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'show') { ?>
+        <div class="panel panel-default">
+          <div class="panel-heading">Projects</div>
+          <?php /*?><div class="row w3-res-tb">
+            <div class="col-sm-5 m-b-xs" style="margin-bottom:20px;">
+              <form action="project.php">
+                <input type="hidden" name="mode" value="add">
+                <button type="submit" class="btn btn-info">Add New Project</button>
+              </form>
+
+            </div>
+
+            <div class="col-sm-4" style="margin-bottom:20px;">
+              <div class="form-group">
+                <form name="search1" method="get" action="project.php">
+
+                  <input type="hidden" name="mode" value="show">
+                  <input type="hidden" name="searchkeyword" value="<?PHP echo @$_REQUEST['searchkeyword'] ?>">
+
+                  <select class="input-sm form-control w-sm inline v-middle" name="clientid" style="width:225px;">
+                    <option value=''> &nbsp; &nbsp; &nbsp; - - Select Client Name - - </option>
+                    <option value=''> All </option>
+                    <?PHP 
 		  $cli=mysqli_query($link,"select * from rl_login where userType='Client'");
 		  while($cli_data=mysqli_fetch_array($cli))
 		  {
 		  ?>
-          <option value="<?PHP echo $cli_data['id']; ?>" <?PHP if(@$_REQUEST['clientid']==$cli_data['id']) { ?> selected <?PHP } ?>><?PHP echo $cli_data['name']; ?> [<?PHP echo $cli_data['email']; ?>]</option>
-          <?PHP } ?>
-        </select>
-        <button class="btn btn-sm btn-default">Go</button>                
-        </form>
-    </div>
-    
-      </div>
-      
-        <form name="search2" method="get" action="project.php">
-        
-        <input type="hidden" name="mode" value="show">
-        <input type="hidden" name="clientid" value="<?PHP echo @$_REQUEST['clientid'] ?>">
-        <div class="col-sm-3">
-        <div class="input-group">
-          <input type="text" class="input-sm form-control" name="searchkeyword" value="<?PHP echo @$_REQUEST['searchkeyword']; ?>">
-          <span class="input-group-btn">
-            <button class="btn btn-sm btn-default" >Go!</button>
-          </span>
-        </div>
-      </div>
-          </form>
-    </div><?php */ ?>
-                        <div class="table-responsive">
-                            <?PHP
+                    <option value="<?PHP echo $cli_data['id']; ?>" <?PHP if(@$_REQUEST['clientid']==$cli_data['id']) {
+                      ?> selected
+                      <?PHP } ?>>
+                      <?PHP echo $cli_data['name']; ?> [
+                      <?PHP echo $cli_data['email']; ?>]
+                    </option>
+                    <?PHP } ?>
+                  </select>
+                  <button class="btn btn-sm btn-default">Go</button>
+                </form>
+              </div>
+
+            </div>
+
+            <form name="search2" method="get" action="project.php">
+
+              <input type="hidden" name="mode" value="show">
+              <input type="hidden" name="clientid" value="<?PHP echo @$_REQUEST['clientid'] ?>">
+              <div class="col-sm-3">
+                <div class="input-group">
+                  <input type="text" class="input-sm form-control" name="searchkeyword"
+                    value="<?PHP echo @$_REQUEST['searchkeyword']; ?>">
+                  <span class="input-group-btn">
+                    <button class="btn btn-sm btn-default">Go!</button>
+                  </span>
+                </div>
+              </div>
+            </form>
+          </div><?php */ ?>
+          <div class="table-responsive">
+            <?PHP
                             $projecttype = @$_REQUEST['usertype'];
                             $searchkeyword = @$_REQUEST['searchkeyword'];
                             ?>
 
 
-                            <div align="center" style="margin:15px;" class="text-success"><?PHP echo $message; ?></div>
-                            <table class="table table-striped b-t b-light">
-                                <thead>
-                                    <tr>
-                                        <th>S.N.</th>
-                                        <th>Project
-                                            <a href="project.php?orderby=DESC&page=<?php echo $page; ?>&usertype=<?php echo $projecttype; ?>&searchkeyword=<?php echo $searchkeyword; ?>&orderfield=projectName&mode=show"><span style="font-size:19px;">&nbsp <i class="fa fa-sort-alpha-desc text-inverse" title="Descending Order"></i></span></a>
-                                            <a href="project.php?orderby=ASC&page=<?php echo $page; ?>&usertype=<?php echo $projecttype; ?>&searchkeyword=<?php echo $searchkeyword; ?>&orderfield=projectName&mode=show"><span style="font-size:19px;">&nbsp <i class="fa fa-sort-alpha-asc text-success" title="Ascending Order"></i></span></a>
-                                        </th>
-                                        <th>Package</th>
-                                        <th>&nbsp;</th>
-                                        <th>&nbsp;</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?PHP
+            <div align="center" style="margin:15px;" class="text-success">
+              <?PHP echo $message; ?>
+            </div>
+            <table class="table table-striped b-t b-light">
+              <thead>
+                <tr>
+                  <th>S.N.</th>
+                  <th>Project
+                    <a
+                      href="project.php?orderby=DESC&page=<?php echo $page; ?>&usertype=<?php echo $projecttype; ?>&searchkeyword=<?php echo $searchkeyword; ?>&orderfield=projectName&mode=show"><span
+                        style="font-size:19px;">&nbsp <i class="fa fa-sort-alpha-desc text-inverse"
+                          title="Descending Order"></i></span></a>
+                    <a
+                      href="project.php?orderby=ASC&page=<?php echo $page; ?>&usertype=<?php echo $projecttype; ?>&searchkeyword=<?php echo $searchkeyword; ?>&orderfield=projectName&mode=show"><span
+                        style="font-size:19px;">&nbsp <i class="fa fa-sort-alpha-asc text-success"
+                          title="Ascending Order"></i></span></a>
+                  </th>
+                  <th>Package</th>
+                  <th>&nbsp;</th>
+                  <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?PHP
                                     $k = @$_REQUEST['orderby'];
                                     if ($k == '') {
                                         $k = "DESC";
@@ -222,31 +237,44 @@ if (isset($_GET['msg']) && $_GET['msg'] == 'exist') {
                                         $newdate = explode('-', $project_data['startDate']);
                                         $newstartdate = $newdate[1] . '-' . $newdate[2] . '-' . $newdate[0];
                                     ?>
-                                        <tr>
-                                            <td><?PHP echo $i; ?>.</td>
-                                            <td><?PHP echo $project_data['projectName']; ?><br />
-                                                <strong>Link:</strong>&nbsp;&nbsp;&nbsp; <a href="<?PHP echo $project_data['websiteUrl']; ?>" target="_blank"><?PHP echo $project_data['websiteUrl']; ?></a><br />
-                                                <strong>Start:</strong>&nbsp;&nbsp; <?PHP echo $newstartdate; ?>
-                                            </td>
-                                            <td><?PHP echo ucwords($pack_data['name']); ?></td>
-                                            <td>
-                                                <form id="forma<?PHP echo $i; ?>" name="forma<?PHP echo $i; ?>" action="project.php?mode=edit" method="post">
-                                                    <input type="hidden" name="pid" value="<?PHP echo $project_data['id']; ?>">
-                                                    <input type="hidden" name="cid" value="<?PHP echo $project_data['cid']; ?>">
-                                                    <i class="fa fa-edit text-success text-active" style="font-size:25px; cursor:pointer;" onclick="document.getElementById('forma<?PHP echo $i; ?>').submit();"></i>
-                                                </form>
-                                            </td>
-                                            <td>
-                                                <a href="project.php?action=delete&pid=<?PHP echo $project_data['id']; ?>" onclick="return confirm('Are you sure you want to delete this record?');"><i class="fa fa-times-circle text-danger text" style="font-size:25px; cursor:pointer;"></i></a>
-                                            </td>
-                                        </tr>
-                                    <?PHP
+                <tr>
+                  <td>
+                    <?PHP echo $i; ?>.
+                  </td>
+                  <td>
+                    <?PHP echo $project_data['projectName']; ?><br />
+                    <strong>Link:</strong>&nbsp;&nbsp;&nbsp; <a href="<?PHP echo $project_data['websiteUrl']; ?>"
+                      target="_blank">
+                      <?PHP echo $project_data['websiteUrl']; ?>
+                    </a><br />
+                    <strong>Start:</strong>&nbsp;&nbsp;
+                    <?PHP echo $newstartdate; ?>
+                  </td>
+                  <td>
+                    <?PHP echo ucwords($pack_data['name']); ?>
+                  </td>
+                  <td>
+                    <form id="forma<?PHP echo $i; ?>" name="forma<?PHP echo $i; ?>" action="project.php?mode=edit"
+                      method="post">
+                      <input type="hidden" name="pid" value="<?PHP echo $project_data['id']; ?>">
+                      <input type="hidden" name="cid" value="<?PHP echo $project_data['cid']; ?>">
+                      <i class="fa fa-edit text-success text-active" style="font-size:25px; cursor:pointer;"
+                        onclick="document.getElementById('forma<?PHP echo $i; ?>').submit();"></i>
+                    </form>
+                  </td>
+                  <td>
+                    <a href="project.php?action=delete&pid=<?PHP echo $project_data['id']; ?>"
+                      onclick="return confirm('Are you sure you want to delete this record?');"><i
+                        class="fa fa-times-circle text-danger text" style="font-size:25px; cursor:pointer;"></i></a>
+                  </td>
+                </tr>
+                <?PHP
                                         $i = $i + 1;
                                     } ?>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!--<footer class="panel-footer">
+              </tbody>
+            </table>
+          </div>
+          <!--<footer class="panel-footer">
       <div class="row">
         
         <div class="col-sm-5 text-center">
@@ -264,327 +292,360 @@ if (isset($_GET['msg']) && $_GET['msg'] == 'exist') {
         </div>
       </div>
     </footer>-->
-                    </div>
-                <?PHP } ?>
+        </div>
+        <?PHP } ?>
 
-                <?PHP if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'add') { ?>
-                    <section class="panel">
-                        <header class="panel-heading">
-                            Add Project
-                        </header>
-                        <div class="panel-body">
-                            <div align="center" style="margin-bottom:30px;" class="text-danger"><?PHP echo $message; ?></div>
-                            <form class="form-horizontal bucket-form login100-form validate-form" method="post" action="project.php?action=add">
+        <?PHP if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'add') { ?>
+        <section class="panel">
+          <header class="panel-heading">
+            Add Project
+          </header>
+          <div class="panel-body">
+            <div align="center" style="margin-bottom:30px;" class="text-danger">
+              <?PHP echo $message; ?>
+            </div>
+            <form class="form-horizontal bucket-form login100-form validate-form" method="post"
+              action="project.php?action=add">
 
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label col-lg-3" for="inputSuccess">Client Name</label>
-                                    <div class="col-lg-6">
+              <div class="form-group">
+                <label class="col-sm-3 control-label col-lg-3" for="inputSuccess">Client Name</label>
+                <div class="col-lg-6">
 
-                                        <select class="form-control m-bot15" name="cid">
-                                            <?PHP
+                  <select class="form-control m-bot15" name="cid">
+                    <?PHP
                                             $cli = mysqli_query($link, "select * from rl_login where userType='Client'");
                                             while ($cli_data = mysqli_fetch_array($cli)) {
                                             ?>
-                                                <option value="<?PHP echo $cli_data['id']; ?>" <?PHP if (@$_REQUEST['clientid'] == $cli_data['id']) { ?> selected <?PHP } ?>><?PHP echo $cli_data['name']; ?> [<?PHP echo $cli_data['email']; ?>]</option>
-                                            <?PHP } ?>
-                                        </select>
+                    <option value="<?PHP echo $cli_data['id']; ?>" <?PHP if (@$_REQUEST['clientid']==$cli_data['id']) {
+                      ?> selected
+                      <?PHP } ?>>
+                      <?PHP echo $cli_data['name']; ?> [
+                      <?PHP echo $cli_data['email']; ?>]
+                    </option>
+                    <?PHP } ?>
+                  </select>
 
-                                    </div>
-                                </div>
+                </div>
+              </div>
 
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label col-lg-3">Project Name</label>
-                                    <div class="col-lg-6">
-                                        <div class="input-group m-bot15">
-                                            <span class="input-group-addon btn-white"><i class="fa fa-file-text text-inverse"></i></span>
-                                            <div class="wrap-input100 validate-input m-b-23" data-validate="Project Name is required">
-                                                <input type="text" class="form-control input100" name="pname">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label col-lg-3">Project Name</label>
+                <div class="col-lg-6">
+                  <div class="input-group m-bot15">
+                    <span class="input-group-addon btn-white"><i class="fa fa-file-text text-inverse"></i></span>
+                    <div class="wrap-input100 validate-input m-b-23" data-validate="Project Name is required">
+                      <input type="text" class="form-control input100" name="pname">
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label col-lg-3">Website URL</label>
-                                    <div class="col-lg-6">
-                                        <div class="input-group m-bot15">
-                                            <span class="input-group-addon btn-white"><i class="fa fa-link text-inverse"></i></span>
-                                            <div class="wrap-input100 validate-input m-b-23" data-validate="Website URL is required">
-                                                <input type="text" class="form-control input100" name="url">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label col-lg-3">Website URL</label>
+                <div class="col-lg-6">
+                  <div class="input-group m-bot15">
+                    <span class="input-group-addon btn-white"><i class="fa fa-link text-inverse"></i></span>
+                    <div class="wrap-input100 validate-input m-b-23" data-validate="Website URL is required">
+                      <input type="text" class="form-control input100" name="url">
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label col-lg-3">Project Start Date</label>
-                                    <div class="col-lg-6">
-                                        <div class="input-group m-bot15">
-                                            <span class="input-group-addon btn-white"><i class="fa fa-calendar text-inverse"></i></span>
-                                            <div class="wrap-input100 validate-input m-b-23" data-validate="Project start date is required">
-                                                <input type="text" class="form-control input100" name="startdate" id="demo" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label col-lg-3">Project Start Date</label>
+                <div class="col-lg-6">
+                  <div class="input-group m-bot15">
+                    <span class="input-group-addon btn-white"><i class="fa fa-calendar text-inverse"></i></span>
+                    <div class="wrap-input100 validate-input m-b-23" data-validate="Project start date is required">
+                      <input type="text" class="form-control input100" name="startdate" id="demo" readonly>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label col-lg-3">Keywords</label>
-                                    <div class="col-lg-6">
-                                        <div class="input-group m-bot15">
-                                            <span class="input-group-addon btn-white"><i class="fa fa-file-text-o text-inverse"></i></span>
-                                            <div class="wrap-input100 validate-input m-b-23" data-validate="Keywords is required">
-                                                <textarea name="keywords" class="form-control" style="height:140px;"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label col-lg-3">Keywords</label>
+                <div class="col-lg-6">
+                  <div class="input-group m-bot15">
+                    <span class="input-group-addon btn-white"><i class="fa fa-file-text-o text-inverse"></i></span>
+                    <div class="wrap-input100 validate-input m-b-23" data-validate="Keywords is required">
+                      <textarea name="keywords" class="form-control" style="height:140px;"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label col-lg-3">Package</label>
-                                    <div class="col-lg-6">
-                                        <select class="form-control m-bot15" name="package">
-                                            <option value=""> - - Select Package - - </option>
-                                            <?PHP
+              <div class="form-group">
+                <label class="col-sm-3 control-label col-lg-3">Package</label>
+                <div class="col-lg-6">
+                  <select class="form-control m-bot15" name="package">
+                    <option value=""> - - Select Package - - </option>
+                    <?PHP
                                             $pack = mysqli_query($link, "select * from rl_package order by name ASC");
                                             while ($pack_data = mysqli_fetch_array($pack)) {
                                             ?>
-                                                <option value="<?PHP echo $pack_data['id']; ?>"><?PHP echo ucwords($pack_data['name']); ?></option>
-                                            <?PHP } ?>
-                                        </select>
-                                    </div>
-                                </div>
+                    <option value="<?PHP echo $pack_data['id']; ?>">
+                      <?PHP echo ucwords($pack_data['name']); ?>
+                    </option>
+                    <?PHP } ?>
+                  </select>
+                </div>
+              </div>
 
 
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label col-lg-3">Notes</label>
-                                    <div class="col-lg-6">
-                                        <div class="input-group m-bot15">
-                                            <span class="input-group-addon btn-white"><i class="fa fa-comments text-inverse"></i></span>
-                                            <textarea name="comments" class="form-control" style="height:140px;"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label col-lg-3">Notes</label>
+                <div class="col-lg-6">
+                  <div class="input-group m-bot15">
+                    <span class="input-group-addon btn-white"><i class="fa fa-comments text-inverse"></i></span>
+                    <textarea name="comments" class="form-control" style="height:140px;"></textarea>
+                  </div>
+                </div>
+              </div>
 
-                                <div class="col-md-3"></div>
+              <div class="col-md-3"></div>
 
 
-                                <div class="col-md-6">
+              <div class="col-md-6">
 
-                                    <div class="form-group">
-                                        <div class="col-lg-6">
-                                            <div class="input-group m-bot15">
-                                                <strong>Project Credentials</strong>
-                                            </div>
-                                        </div>
-                                    </div>
+                <div class="form-group">
+                  <div class="col-lg-6">
+                    <div class="input-group m-bot15">
+                      <strong>Project Credentials</strong>
+                    </div>
+                  </div>
+                </div>
 
-                                    <?PHP
+                <?PHP
                                     $credential = mysqli_query($link, "select * from rl_projects_credentials_types order by priority ASC");
                                     $k = 1;
                                     while ($credential_data = mysqli_fetch_array($credential)) {
                                     ?>
-                                        <div style="background:#eef9f0; padding:10px; margin-bottom:40px; border:#093 1px solid">
-                                            <div class="form-group">
-                                                <div class="col-lg-12">
-                                                    <div class="input-group m-bot15">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-success" style="cursor:default;" type="button"><?PHP echo $credential_data['name']; ?> Link</button>
-                                                        </span>
-                                                        <input type="text" class="form-control" name="link<?PHP echo $k; ?>">
-                                                        <input type="hidden" class="form-control" name="credentialsname<?PHP echo $k; ?>" value="<?PHP echo $credential_data['name']; ?>">
-                                                    </div>
+                <div style="background:#eef9f0; padding:10px; margin-bottom:40px; border:#093 1px solid">
+                  <div class="form-group">
+                    <div class="col-lg-12">
+                      <div class="input-group m-bot15">
+                        <span class="input-group-btn">
+                          <button class="btn btn-success" style="cursor:default;" type="button">
+                            <?PHP echo $credential_data['name']; ?> Link
+                          </button>
+                        </span>
+                        <input type="text" class="form-control" name="link<?PHP echo $k; ?>">
+                        <input type="hidden" class="form-control" name="credentialsname<?PHP echo $k; ?>"
+                          value="<?PHP echo $credential_data['name']; ?>">
+                      </div>
 
 
-                                                    <div class="input-group m-bot15">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-success" style="cursor:default;" type="button"><?PHP echo $credential_data['name']; ?> User</button>
-                                                        </span>
-                                                        <input type="text" class="form-control" name="username<?PHP echo $k; ?>">
-                                                    </div>
+                      <div class="input-group m-bot15">
+                        <span class="input-group-btn">
+                          <button class="btn btn-success" style="cursor:default;" type="button">
+                            <?PHP echo $credential_data['name']; ?> User
+                          </button>
+                        </span>
+                        <input type="text" class="form-control" name="username<?PHP echo $k; ?>">
+                      </div>
 
 
-                                                    <div class="input-group m-bot15">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-success" style="cursor:default;" type="button"><?PHP echo $credential_data['name']; ?> Password</button>
-                                                        </span>
-                                                        <input type="text" class="form-control" name="password<?PHP echo $k; ?>">
-                                                    </div>
+                      <div class="input-group m-bot15">
+                        <span class="input-group-btn">
+                          <button class="btn btn-success" style="cursor:default;" type="button">
+                            <?PHP echo $credential_data['name']; ?> Password
+                          </button>
+                        </span>
+                        <input type="text" class="form-control" name="password<?PHP echo $k; ?>">
+                      </div>
 
 
-                                                    <div class="input-group" style="margin-bottom:-10px;">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-success" style="cursor:default;height:140px;" type="button"><?PHP echo $credential_data['name']; ?> Comments</button>
-                                                        </span>
-                                                        <textarea class="form-control" style="height:140px;" name="comments<?PHP echo $k; ?>"></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <?PHP
+                      <div class="input-group" style="margin-bottom:-10px;">
+                        <span class="input-group-btn">
+                          <button class="btn btn-success" style="cursor:default;height:140px;" type="button">
+                            <?PHP echo $credential_data['name']; ?> Comments
+                          </button>
+                        </span>
+                        <textarea class="form-control" style="height:140px;"
+                          name="comments<?PHP echo $k; ?>"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <?PHP
                                         $k = $k + 1;
                                     }
                                     ?>
-                                    <input type="hidden" class="form-control" name="login_total" value="<?PHP echo $k - 1; ?>">
+                <input type="hidden" class="form-control" name="login_total" value="<?PHP echo $k - 1; ?>">
 
-                                </div>
-                                <div class="clearfix"></div><br><br>
-
-
+              </div>
+              <div class="clearfix"></div><br><br>
 
 
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label col-lg-3">Stop Status</label>
-                                    <div class="col-lg-6">
-                                        <div class="input-group m-bot15">
-                                            <span class="input-group-addon" style="width:200px; border:1px solid #ccc; border-radius:4px;">
-                                                <input type="radio" name="stopstatus" value="1" checked> Active
-                                                <input type="radio" name="stopstatus" value="0"> Stopped
-                                            </span>
-                                            <input type="text" class="form-control" style="display:none;">
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label col-lg-3">Stop Date</label>
-                                    <div class="col-lg-6">
-                                        <div class="input-group m-bot15">
-                                            <span class="input-group-addon btn-white"><i class="fa fa-calendar text-inverse"></i></span>
-                                            <div class="wrap-input100 m-b-23">
-                                                <input type="text" class="form-control input100" name="stopdate" id="demo1" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <div class="col-lg-3">&nbsp;</div>
-                                    <div class="col-lg-6">
-                                        <button type="submit" class="btn btn-info">Submit</button>
-                                    </div>
-                                </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label col-lg-3">Stop Status</label>
+                <div class="col-lg-6">
+                  <div class="input-group m-bot15">
+                    <span class="input-group-addon" style="width:200px; border:1px solid #ccc; border-radius:4px;">
+                      <input type="radio" name="stopstatus" value="1" checked> Active
+                      <input type="radio" name="stopstatus" value="0"> Stopped
+                    </span>
+                    <input type="text" class="form-control" style="display:none;">
+                  </div>
+                </div>
+              </div>
 
-                            </form>
-                        </div>
-                    </section>
-                <?PHP } ?>
+              <div class="form-group">
+                <label class="col-sm-3 control-label col-lg-3">Stop Date</label>
+                <div class="col-lg-6">
+                  <div class="input-group m-bot15">
+                    <span class="input-group-addon btn-white"><i class="fa fa-calendar text-inverse"></i></span>
+                    <div class="wrap-input100 m-b-23">
+                      <input type="text" class="form-control input100" name="stopdate" id="demo1" readonly>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-                <?PHP if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'edit') { ?>
+              <div class="form-group">
+                <div class="col-lg-3">&nbsp;</div>
+                <div class="col-lg-6">
+                  <button type="submit" class="btn btn-info">Submit</button>
+                </div>
+              </div>
 
-                    <?PHP
+            </form>
+          </div>
+        </section>
+        <?PHP } ?>
+
+        <?PHP if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'edit') { ?>
+
+        <?PHP
                     $project = mysqli_query($link, "select * from rl_projects where id='" . $_POST['pid'] . "'");
                     $project_data = mysqli_fetch_array($project);
                     ?>
-                    <section class="panel">
-                        <header class="panel-heading">
-                            Edit Project
-                        </header>
-                        <div class="panel-body">
-                            <div align="center" style="margin-bottom:30px;" class="text-danger"><?PHP echo $message; ?></div>
-                            <form class="form-horizontal bucket-form login100-form validate-form" method="post" action="project.php?action=edit">
+        <section class="panel">
+          <header class="panel-heading">
+            Edit Project
+          </header>
+          <div class="panel-body">
+            <div align="center" style="margin-bottom:30px;" class="text-danger">
+              <?PHP echo $message; ?>
+            </div>
+            <form class="form-horizontal bucket-form login100-form validate-form" method="post"
+              action="project.php?action=edit">
 
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label col-lg-3" for="inputSuccess">Client Name</label>
-                                    <div class="col-lg-6">
-                                        <?PHP
+              <div class="form-group">
+                <label class="col-sm-3 control-label col-lg-3" for="inputSuccess">Client Name</label>
+                <div class="col-lg-6">
+                  <?PHP
                                         $cli = mysqli_query($link, "select * from rl_login where userType='Client' and id='" . $_POST['cid'] . "'");
                                         $cli_data = mysqli_fetch_array($cli);
                                         ?>
-                                        <input type="text" class="form-control input100" value="<?PHP echo $cli_data['name']; ?> [<?PHP echo $cli_data['email']; ?>]" readonly>
-                                        <input type="hidden" class="form-control input100" value="<?PHP echo $_POST['pid']; ?>" name="pid">
+                  <input type="text" class="form-control input100"
+                    value="<?PHP echo $cli_data['name']; ?> [<?PHP echo $cli_data['email']; ?>]" readonly>
+                  <input type="hidden" class="form-control input100" value="<?PHP echo $_POST['pid']; ?>" name="pid">
 
-                                    </div>
-                                </div>
+                </div>
+              </div>
 
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label col-lg-3">Project Name</label>
-                                    <div class="col-lg-6">
-                                        <div class="input-group m-bot15">
-                                            <span class="input-group-addon btn-white"><i class="fa fa-file-text text-inverse"></i></span>
-                                            <div class="wrap-input100 validate-input m-b-23" data-validate="Project Name is required">
-                                                <input type="text" class="form-control input100" name="pname" value="<?PHP echo $project_data['projectName']; ?>">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label col-lg-3">Project Name</label>
+                <div class="col-lg-6">
+                  <div class="input-group m-bot15">
+                    <span class="input-group-addon btn-white"><i class="fa fa-file-text text-inverse"></i></span>
+                    <div class="wrap-input100 validate-input m-b-23" data-validate="Project Name is required">
+                      <input type="text" class="form-control input100" name="pname"
+                        value="<?PHP echo $project_data['projectName']; ?>">
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label col-lg-3">Website URL</label>
-                                    <div class="col-lg-6">
-                                        <div class="input-group m-bot15">
-                                            <span class="input-group-addon btn-white"><i class="fa fa-link text-inverse"></i></span>
-                                            <div class="wrap-input100 validate-input m-b-23" data-validate="Website URL is required">
-                                                <input type="text" class="form-control input100" name="url" value="<?PHP echo $project_data['websiteUrl']; ?>">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label col-lg-3">Website URL</label>
+                <div class="col-lg-6">
+                  <div class="input-group m-bot15">
+                    <span class="input-group-addon btn-white"><i class="fa fa-link text-inverse"></i></span>
+                    <div class="wrap-input100 validate-input m-b-23" data-validate="Website URL is required">
+                      <input type="text" class="form-control input100" name="url"
+                        value="<?PHP echo $project_data['websiteUrl']; ?>">
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label col-lg-3">Project Start Date</label>
-                                    <div class="col-lg-6">
-                                        <div class="input-group m-bot15">
-                                            <span class="input-group-addon btn-white"><i class="fa fa-calendar text-inverse"></i></span>
-                                            <div class="wrap-input100 validate-input m-b-23" data-validate="Project start date is required">
-                                                <input type="text" class="form-control input100" name="startdate" value="<?PHP echo $project_data['startDate']; ?>" id="demo" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label col-lg-3">Project Start Date</label>
+                <div class="col-lg-6">
+                  <div class="input-group m-bot15">
+                    <span class="input-group-addon btn-white"><i class="fa fa-calendar text-inverse"></i></span>
+                    <div class="wrap-input100 validate-input m-b-23" data-validate="Project start date is required">
+                      <input type="text" class="form-control input100" name="startdate"
+                        value="<?PHP echo $project_data['startDate']; ?>" id="demo" readonly>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label col-lg-3">Keywords</label>
-                                    <div class="col-lg-6">
-                                        <div class="input-group m-bot15">
-                                            <span class="input-group-addon btn-white"><i class="fa fa-file-text-o text-inverse"></i></span>
-                                            <div class="wrap-input100 validate-input m-b-23" data-validate="Keywords is required">
-                                                <textarea name="keywords" class="form-control" style="height:140px;"><?PHP echo $project_data['keywords']; ?></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label col-lg-3">Keywords</label>
+                <div class="col-lg-6">
+                  <div class="input-group m-bot15">
+                    <span class="input-group-addon btn-white"><i class="fa fa-file-text-o text-inverse"></i></span>
+                    <div class="wrap-input100 validate-input m-b-23" data-validate="Keywords is required">
+                      <textarea name="keywords" class="form-control"
+                        style="height:140px;"><?PHP echo $project_data['keywords']; ?></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label col-lg-3">Package</label>
-                                    <div class="col-lg-6">
-                                        <select class="form-control m-bot15" name="package">
-                                            <option value=""> - - Select Package - - </option>
-                                            <?PHP
+              <div class="form-group">
+                <label class="col-sm-3 control-label col-lg-3">Package</label>
+                <div class="col-lg-6">
+                  <select class="form-control m-bot15" name="package">
+                    <option value=""> - - Select Package - - </option>
+                    <?PHP
                                             $pack = mysqli_query($link, "select * from rl_package order by name ASC");
                                             while ($pack_data = mysqli_fetch_array($pack)) {
                                             ?>
-                                                <option value="<?PHP echo $pack_data['id']; ?>" <?PHP if ($project_data['package'] == $pack_data['id']) { ?> selected <?PHP } ?>><?PHP echo ucwords($pack_data['name']); ?></option>
-                                            <?PHP } ?>
-                                        </select>
-                                    </div>
-                                </div>
+                    <option value="<?PHP echo $pack_data['id']; ?>" <?PHP if
+                      ($project_data['package']==$pack_data['id']) { ?> selected
+                      <?PHP } ?>>
+                      <?PHP echo ucwords($pack_data['name']); ?>
+                    </option>
+                    <?PHP } ?>
+                  </select>
+                </div>
+              </div>
 
 
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label col-lg-3">Notes</label>
-                                    <div class="col-lg-6">
-                                        <div class="input-group m-bot15">
-                                            <span class="input-group-addon btn-white"><i class="fa fa-comments text-inverse"></i></span>
-                                            <textarea name="comments" class="form-control" style="height:140px;"><?PHP echo $project_data['notes']; ?></textarea>
-                                        </div>
-                                    </div>
-                                </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label col-lg-3">Notes</label>
+                <div class="col-lg-6">
+                  <div class="input-group m-bot15">
+                    <span class="input-group-addon btn-white"><i class="fa fa-comments text-inverse"></i></span>
+                    <textarea name="comments" class="form-control"
+                      style="height:140px;"><?PHP echo $project_data['notes']; ?></textarea>
+                  </div>
+                </div>
+              </div>
 
-                                <div class="col-md-3"></div>
+              <div class="col-md-3"></div>
 
 
-                                <div class="col-md-6">
+              <div class="col-md-6">
 
-                                    <div class="form-group">
-                                        <div class="col-lg-6">
-                                            <div class="input-group m-bot15">
-                                                <strong>Project Credentials</strong>
-                                            </div>
-                                        </div>
-                                    </div>
+                <div class="form-group">
+                  <div class="col-lg-6">
+                    <div class="input-group m-bot15">
+                      <strong>Project Credentials</strong>
+                    </div>
+                  </div>
+                </div>
 
-                                    <?PHP
+                <?PHP
                                     $credential = mysqli_query($link, "select * from rl_projects_credentials_types order by priority ASC");
                                     $k = 1;
                                     while ($credential_data = mysqli_fetch_array($credential)) {
@@ -592,111 +653,129 @@ if (isset($_GET['msg']) && $_GET['msg'] == 'exist') {
                                         $sql = mysqli_query($link, "select * from rl_projects_credentials where pid='" . $_POST['pid'] . "' limit $limt,1");
                                         $sql_data = mysqli_fetch_array($sql);
                                     ?>
-                                        <div style="background:#eef9f0; padding:10px; margin-bottom:40px; border:#093 1px solid">
-                                            <div class="form-group">
-                                                <div class="col-lg-12">
-                                                    <div class="input-group m-bot15">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-success" style="cursor:default;" type="button"><?PHP echo $credential_data['name']; ?> Link</button>
-                                                        </span>
-                                                        <input type="text" class="form-control" name="link<?PHP echo $k; ?>" value="<?PHP echo $sql_data['credentialsLink']; ?>">
-                                                        <input type="hidden" class="form-control" name="credentialsname<?PHP echo $k; ?>" value="<?PHP echo $credential_data['name']; ?>">
-                                                    </div>
+                <div style="background:#eef9f0; padding:10px; margin-bottom:40px; border:#093 1px solid">
+                  <div class="form-group">
+                    <div class="col-lg-12">
+                      <div class="input-group m-bot15">
+                        <span class="input-group-btn">
+                          <button class="btn btn-success" style="cursor:default;" type="button">
+                            <?PHP echo $credential_data['name']; ?> Link
+                          </button>
+                        </span>
+                        <input type="text" class="form-control" name="link<?PHP echo $k; ?>"
+                          value="<?PHP echo $sql_data['credentialsLink']; ?>">
+                        <input type="hidden" class="form-control" name="credentialsname<?PHP echo $k; ?>"
+                          value="<?PHP echo $credential_data['name']; ?>">
+                      </div>
 
 
-                                                    <div class="input-group m-bot15">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-success" style="cursor:default;" type="button"><?PHP echo $credential_data['name']; ?> User</button>
-                                                        </span>
-                                                        <input type="text" class="form-control" name="username<?PHP echo $k; ?>" value="<?PHP echo $sql_data['credentialsUserName']; ?>">
-                                                    </div>
+                      <div class="input-group m-bot15">
+                        <span class="input-group-btn">
+                          <button class="btn btn-success" style="cursor:default;" type="button">
+                            <?PHP echo $credential_data['name']; ?> User
+                          </button>
+                        </span>
+                        <input type="text" class="form-control" name="username<?PHP echo $k; ?>"
+                          value="<?PHP echo $sql_data['credentialsUserName']; ?>">
+                      </div>
 
 
-                                                    <div class="input-group m-bot15">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-success" style="cursor:default;" type="button"><?PHP echo $credential_data['name']; ?> Password</button>
-                                                        </span>
-                                                        <input type="text" class="form-control" name="password<?PHP echo $k; ?>" value="<?PHP echo $sql_data['credentialsPassword']; ?>">
-                                                    </div>
+                      <div class="input-group m-bot15">
+                        <span class="input-group-btn">
+                          <button class="btn btn-success" style="cursor:default;" type="button">
+                            <?PHP echo $credential_data['name']; ?> Password
+                          </button>
+                        </span>
+                        <input type="text" class="form-control" name="password<?PHP echo $k; ?>"
+                          value="<?PHP echo $sql_data['credentialsPassword']; ?>">
+                      </div>
 
 
-                                                    <div class="input-group" style="margin-bottom:-10px;">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-success" style="cursor:default;height:140px;" type="button"><?PHP echo $credential_data['name']; ?> Comments</button>
-                                                        </span>
-                                                        <textarea class="form-control" style="height:140px;" name="comments<?PHP echo $k; ?>"><?PHP echo $sql_data['comments']; ?></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <?PHP
+                      <div class="input-group" style="margin-bottom:-10px;">
+                        <span class="input-group-btn">
+                          <button class="btn btn-success" style="cursor:default;height:140px;" type="button">
+                            <?PHP echo $credential_data['name']; ?> Comments
+                          </button>
+                        </span>
+                        <textarea class="form-control" style="height:140px;"
+                          name="comments<?PHP echo $k; ?>"><?PHP echo $sql_data['comments']; ?></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <?PHP
                                         $k = $k + 1;
                                     }
                                     ?>
-                                    <input type="hidden" class="form-control" name="login_total" value="<?PHP echo $k - 1; ?>">
+                <input type="hidden" class="form-control" name="login_total" value="<?PHP echo $k - 1; ?>">
 
-                                </div>
-                                <div class="clearfix"></div><br><br>
+              </div>
+              <div class="clearfix"></div><br><br>
 
 
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label col-lg-3">Stop Status</label>
-                                    <div class="col-lg-6">
-                                        <div class="input-group m-bot15">
-                                            <span class="input-group-addon" style="width:200px; border:1px solid #ccc; border-radius:4px;">
-                                                <input type="radio" name="stopstatus" value="1" <?PHP if ($project_data['stopstatus'] == 1) { ?> checked <?PHP } ?>> Active
-                                                <input type="radio" name="stopstatus" value="0" <?PHP if ($project_data['stopstatus'] == 0) { ?> checked <?PHP } ?>> Stopped
-                                            </span>
-                                            <input type="text" class="form-control" style="display:none;">
-                                        </div>
-                                    </div>
-                                </div>
-                                <?PHP
+              <div class="form-group">
+                <label class="col-sm-3 control-label col-lg-3">Stop Status</label>
+                <div class="col-lg-6">
+                  <div class="input-group m-bot15">
+                    <span class="input-group-addon" style="width:200px; border:1px solid #ccc; border-radius:4px;">
+                      <input type="radio" name="stopstatus" value="1" <?PHP if ($project_data['stopstatus']==1) { ?>
+                      checked
+                      <?PHP } ?>> Active
+                      <input type="radio" name="stopstatus" value="0" <?PHP if ($project_data['stopstatus']==0) { ?>
+                      checked
+                      <?PHP } ?>> Stopped
+                    </span>
+                    <input type="text" class="form-control" style="display:none;">
+                  </div>
+                </div>
+              </div>
+              <?PHP
                                 if ($project_data['stopdate'] == "0000-00-00") {
                                     $project_data['stopdate'] = '';
                                 }
                                 ?>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label col-lg-3">Stop Date</label>
-                                    <div class="col-lg-6">
-                                        <div class="input-group m-bot15">
-                                            <span class="input-group-addon btn-white"><i class="fa fa-calendar text-inverse"></i></span>
-                                            <div class="wrap-input100 m-b-23">
-                                                <input type="text" class="form-control input100" name="stopdate" value="<?PHP echo $project_data['stopdate']; ?>" id="demo1" readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label col-lg-3">Stop Date</label>
+                <div class="col-lg-6">
+                  <div class="input-group m-bot15">
+                    <span class="input-group-addon btn-white"><i class="fa fa-calendar text-inverse"></i></span>
+                    <div class="wrap-input100 m-b-23">
+                      <input type="text" class="form-control input100" name="stopdate"
+                        value="<?PHP echo $project_data['stopdate']; ?>" id="demo1" readonly>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-                                <div class="form-group">
-                                    <div class="col-lg-3">&nbsp;</div>
-                                    <div class="col-lg-6">
-                                        <button type="submit" class="btn btn-info">Submit</button>
-                                    </div>
-                                </div>
+              <div class="form-group">
+                <div class="col-lg-3">&nbsp;</div>
+                <div class="col-lg-6">
+                  <button type="submit" class="btn btn-info">Submit</button>
+                </div>
+              </div>
 
-                            </form>
-                        </div>
-                    </section>
-
-                <?PHP } ?>
-
-            </div>
+            </form>
+          </div>
         </section>
-        <script src="node_modules/jquery/dist/jquery.min.js"></script>
-        <script src="js/main.js"></script>
+
+        <?PHP } ?>
+
+      </div>
+    </section>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="js/main.js"></script>
 
 
 
-        <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-        <script src="js/dcalendar.picker.js"></script>
-        <script>
-            $('#demo').dcalendarpicker();
-            $('#calendar-demo').dcalendar(); //creates the calendar
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="js/dcalendar.picker.js"></script>
+    <script>
+    $('#demo').dcalendarpicker();
+    $('#calendar-demo').dcalendar(); //creates the calendar
 
-            $('#demo1').dcalendarpicker();
-            $('#calendar-demo1').dcalendar(); //creates the calendar
-        </script>
-        <!-- footer -->
-        <?php include("includes/footer.php"); ?>
-        <!-- footer -->
+    $('#demo1').dcalendarpicker();
+    $('#calendar-demo1').dcalendar(); //creates the calendar
+    </script>
+    <!-- footer -->
+    <?php include("includes/footer.php"); ?>
+    <!-- footer -->
