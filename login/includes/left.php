@@ -132,7 +132,7 @@ if($_SESSION['usertype']=='Client')
     <div class="leftside-navigation">
       <ul class="sidebar-menu" id="nav-accordion">
         <li>
-          <a class="active" href="dashboard.php">
+          <a class="active" href=<?php echo "dashboard.php?account_id=".$_COOKIE['account_id']; ?>>
             <i class="fa fa-home"></i>
             <span>Dashboard</span>
           </a>
