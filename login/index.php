@@ -5,73 +5,73 @@ require_once __DIR__ . '/includes/common.php';
 
 require_once __DIR__ . '/includes/check-session-for-login-page.php';
 
-// if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-//     if (!array_key_exists('login-type', $_POST)) {
-//         throw new Exception('something-went-wrong:invalid-markup');
-//     }
+    if (!array_key_exists('login-type', $_POST)) {
+        throw new Exception('something-went-wrong:invalid-markup');
+    }
 
-//     if ($_POST['login-type'] == $BASIC_LOGIN_TYPE) {
+    if ($_POST['login-type'] == $BASIC_LOGIN_TYPE) {
 
-//         if (!array_key_exists('username', $_POST)
-//             || !array_key_exists('password', $_POST)) {
-//             throw new Exception('something-went-wrong:invalid-markup');
-//         }
+        if (!array_key_exists('username', $_POST)
+            || !array_key_exists('password', $_POST)) {
+            throw new Exception('something-went-wrong:invalid-markup');
+        }
 
-//         $result = $link->query("select * from rl_login where email='" . $_POST['username'] . "' and password='" . $_POST['password'] . "' and status=1");
+        $result = $link->query("select * from rl_login where email='" . $_POST['username'] . "' and password='" . $_POST['password'] . "' and status=1");
 
-//         $rows = $result->fetch_all(MYSQLI_ASSOC);
+        $rows = $result->fetch_all(MYSQLI_ASSOC);
 
-//         if (count($rows) != 0) {
+        if (count($rows) != 0) {
 
-//             $expiry = (new DateTimeImmutable())
-//             ->modify("+$HOURS_UNTIL_COOKIE_EXPIRES hours")
-//             ->getTimestamp();
+            $expiry = (new DateTimeImmutable())
+            ->modify("+$HOURS_UNTIL_COOKIE_EXPIRES hours")
+            ->getTimestamp();
 
-//             setcookie($COOKIE_NAME, base64_encode(json_encode([
-//                 'id' => $rows[0]['id'],
-//                 'expiry' => $expiry,
-//                 'sign' => md5($COOKIE_SECRET),
-//                 'login_type' => $BASIC_LOGIN_TYPE,
-//             ])), $expiry, '', $_SERVER['HTTP_HOST'], true, true);
+            setcookie($COOKIE_NAME, base64_encode(json_encode([
+                'id' => $rows[0]['id'],
+                'expiry' => $expiry,
+                'sign' => md5($COOKIE_SECRET),
+                'login_type' => $BASIC_LOGIN_TYPE,
+            ])), $expiry, '', $_SERVER['HTTP_HOST'], true, true);
 
-//             header("Location: $DASHBOARD_PAGE_PATH");
+            header("Location: $DASHBOARD_PAGE_PATH");
 
-//             exit;
+            exit;
 
-//         }
+        }
         
-//         else {
-//             $message = 'Username and password does not match!!';
-//         }
+        else {
+            $message = 'Username and password does not match!!';
+        }
 
-//     }
+    }
 
     // if ($_POST['login-type'] == $VENDASTA_SSO_LOGIN_TYPE) {
 
-        require_once __DIR__ . '/vendor/autoload.php';
+        // require_once __DIR__ . '/vendor/autoload.php';
 
-        $provider = new \League\OAuth2\Client\Provider\GenericProvider([
-            'urlResourceOwnerDetails' => $oauth_resource_owner_details_endpoint_url,
-            'urlAuthorize' => "$authorization_url?account_id=".$_COOKIE['account_id'],
-            'urlAccessToken' => $oauth_access_token_endpoint_url,
-            'clientSecret' => $oauth_client_secret,
-            'clientId' => $oauth_client_id,
-            'redirectUri' => $oauth_redirect_url,
-        ]);
+        // $provider = new \League\OAuth2\Client\Provider\GenericProvider([
+        //     'urlResourceOwnerDetails' => $oauth_resource_owner_details_endpoint_url,
+        //     'urlAuthorize' => "$authorization_url?account_id=".$_COOKIE['account_id'],
+        //     'urlAccessToken' => $oauth_access_token_endpoint_url,
+        //     'clientSecret' => $oauth_client_secret,
+        //     'clientId' => $oauth_client_id,
+        //     'redirectUri' => $oauth_redirect_url,
+        // ]);
 
-        $authorizationUrl = $provider->getAuthorizationUrl([
-            'state' => $ACCOUNT_ID,
-            'scope' => ['profile'],
-        ]);
+        // $authorizationUrl = $provider->getAuthorizationUrl([
+        //     'state' => $ACCOUNT_ID,
+        //     'scope' => ['profile'],
+        // ]);
 
-        header("Location: $authorizationUrl");
+        // header("Location: $authorizationUrl");
 
-        exit;
+        // exit;
 
 //     }
 
-// }
+}
 
 ?>
 
@@ -137,11 +137,11 @@ require_once __DIR__ . '/includes/check-session-for-login-page.php';
               </div>
             </div>
 
-            <div class="vendesta-login">
+            <!-- <div class="vendesta-login">
               <button name="login-type" value="vendasta-sso" class="vendesta-login-form-btn">
                 Continue with Vendasta
               </button>
-            </div>
+            </div> -->
 
         </form>
       </div>

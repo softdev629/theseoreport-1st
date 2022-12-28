@@ -11,6 +11,26 @@ if(array_key_exists('account_id', $_GET)) {
             ->getTimestamp();
   
   setcookie('account_id', $_GET['account_id'], $expiry, '', $_SERVER['HTTP_HOST'], true, true);
+
+  require_once __DIR__ . '/vendor/autoload.php';
+
+  $provider = new \League\OAuth2\Client\Provider\GenericProvider([
+      'urlResourceOwnerDetails' => $oauth_resource_owner_details_endpoint_url,
+      'urlAuthorize' => "$authorization_url?account_id=".$_COOKIE['account_id'],
+      'urlAccessToken' => $oauth_access_token_endpoint_url,
+      'clientSecret' => $oauth_client_secret,
+      'clientId' => $oauth_client_id,
+      'redirectUri' => $oauth_redirect_url,
+  ]);
+
+  $authorizationUrl = $provider->getAuthorizationUrl([
+      'state' => $ACCOUNT_ID,
+      'scope' => ['profile'],
+  ]);
+
+  header("Location: $authorizationUrl");
+
+  exit;
 }
 
 require_once __DIR__ . '/includes/check-session.php';
