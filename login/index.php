@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'login_type' => $BASIC_LOGIN_TYPE,
             ])), $expiry, '', $_SERVER['HTTP_HOST'], true, true);
 
-            header("Location: $DASHBOARD_PAGE_PATH");
+            header("Location: $DASHBOARD_PAGE_PATH"."?account_id=".$_COOKIE['account_id']);
 
             exit;
 

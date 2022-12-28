@@ -5,6 +5,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 require_once __DIR__ . '/includes/database.php';
 require_once __DIR__ . '/includes/common.php';
+require_once __DIR__ . '/includes/init-session.php';
 
 if (!array_key_exists('code', $_GET)) {
     throw new Exception('something-went-wrong:missing-code-parameter');
