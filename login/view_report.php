@@ -8,7 +8,7 @@ require_once __DIR__ . '/includes/check-session.php';
 require_once __DIR__ . '/includes/init-session.php';
 
 if ($_SESSION['usertype'] != 'Client') {
-    header("Location: $DASHBOARD_PAGE_PATH");
+  header("Location: $DASHBOARD_PAGE_PATH"."?account_id=".$_SESSION['account_id']);
     exit;
 }
 

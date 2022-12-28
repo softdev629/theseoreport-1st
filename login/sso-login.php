@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -92,7 +93,7 @@ try {
         }
     }
 
-    header("Location: $DASHBOARD_PAGE_PATH");
+    header("Location: $DASHBOARD_PAGE_PATH"."?account_id=".$_SESSION['account_id']);
 
     exit;
     

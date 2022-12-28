@@ -12,6 +12,6 @@ if (!is_object($cookie)
 }
 
 if (time() < $cookie->expiry) {
-    header("Location: $DASHBOARD_PAGE_PATH");
+    header("Location: $DASHBOARD_PAGE_PATH"."?account_id=".$_COOKIE['account_id']);
     exit;
 }

@@ -77,5 +77,5 @@ $_SESSION['username'] = $user['email'];
 $_SESSION['UID'] = $user['id'];
 $_SESSION['name'] = $user['name'];
 $_SESSION['usertype'] = $user['userType'];
-$_SESSION['loginType'] = $cookie->login_type;
+$_SESSION['loginType'] = $VENDASTA_SSO_LOGIN_TYPE;
 $_SESSION['account_id'] = $_COOKIE['account_id'];

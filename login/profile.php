@@ -8,7 +8,7 @@ require_once __DIR__ . '/includes/check-session.php';
 require_once __DIR__ . '/includes/init-session.php';
 
 if ($_SESSION['loginType'] != $BASIC_LOGIN_TYPE) {
-    header("Location: $DASHBOARD_PAGE_PATH");
+    header("Location: $DASHBOARD_PAGE_PATH"."?account_id=".$_SESSION['account_id']);
     exit;
 }
 
@@ -198,10 +198,12 @@ if ($_POST['name'] != '') {
                         </div>
                         <div id="ErrorLabel_39"
                           style="background-color:#c91822; text-align:center; color:White; font-size:12px;  width:200px; padding:3px; margin-top: -5px; margin-bottom: 10px; display:none;">
-                          <span class="jpg_pdf" style="color:#fff; text-align:center;">Invalid file format</span></div>
+                          <span class="jpg_pdf" style="color:#fff; text-align:center;">Invalid file format</span>
+                        </div>
                         <div id="SucessLabel_39"
                           style="background-color:#53741d; text-align:center; color:White; font-size:12px;  width:200px; padding:3px; margin-top: -5px; margin-bottom: 10px; display:none;">
-                          <span class="jpg_pdf" style="color:#fff; text-align:center;">File Selected</span></div>
+                          <span class="jpg_pdf" style="color:#fff; text-align:center;">File Selected</span>
+                        </div>
                       </div>
                     </div>
 
