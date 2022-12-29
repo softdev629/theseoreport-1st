@@ -27,7 +27,7 @@ if(array_key_exists('account_id', $_GET)) {
       'state' => $ACCOUNT_ID,
       'scope' => ['profile'],
   ]);
-die($authorizationUrl);
+// die($authorizationUrl);
   header("Location: $authorizationUrl");
 
   exit;
