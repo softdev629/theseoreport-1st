@@ -6,7 +6,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/includes/database.php';
 require_once __DIR__ . '/includes/common.php';
 require_once __DIR__ . '/includes/init-session.php';
-
+die('asdf');
 if (!array_key_exists('code', $_GET)) {
     throw new Exception('something-went-wrong:missing-code-parameter');
 }
@@ -32,7 +32,7 @@ try {
         'expiry' => $access_token->getExpires(),
         'login_type' => $VENDASTA_SSO_LOGIN_TYPE,
     ])), $access_token->getExpires(), '', $_SERVER['HTTP_HOST'], true, true);
-
+die('asdf');
     $client = new \GuzzleHttp\Client();
 
     $response = $client->get($oauth_resource_owner_details_endpoint_url, ['headers' => [

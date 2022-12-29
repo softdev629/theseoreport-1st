@@ -11,7 +11,7 @@ if(array_key_exists('account_id', $_GET)) {
             ->getTimestamp();
   
   setcookie('account_id', $_GET['account_id'], $expiry, '', $_SERVER['HTTP_HOST'], true, true);
-
+// die(var_dump($_COOKIE['account_id']));
   require_once __DIR__ . '/vendor/autoload.php';
 
   $provider = new \League\OAuth2\Client\Provider\GenericProvider([
