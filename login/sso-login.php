@@ -1,12 +1,9 @@
 <?php
-session_start();
-
 require_once __DIR__ . '/vendor/autoload.php';
 
 require_once __DIR__ . '/includes/database.php';
 require_once __DIR__ . '/includes/common.php';
-require_once __DIR__ . '/includes/init-session.php';
-die('asdf');
+
 if (!array_key_exists('code', $_GET)) {
     throw new Exception('something-went-wrong:missing-code-parameter');
 }
@@ -21,11 +18,9 @@ $provider = new \League\OAuth2\Client\Provider\GenericProvider([
 ]);
 
 try {
-
     $access_token = $provider->getAccessToken('authorization_code', [
         'code' => $_GET['code'],
     ]);
-
     setcookie($COOKIE_NAME, base64_encode(json_encode([
         'sign' => md5($COOKIE_SECRET),
         'value' => $access_token->__toString(),
@@ -94,7 +89,7 @@ die('asdf');
         }
     }
 
-    header("Location: $DASHBOARD_PAGE_PATH"."?account_id=".$_SESSION['account_id']);
+    header("Location: $DASHBOARD_PAGE_PATH"."?account_id=".$_COOKIE['account_id']);
 
     exit;
     

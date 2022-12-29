@@ -1,7 +1,6 @@
 <?php
 
 $cookie = json_decode(base64_decode($_COOKIE[$COOKIE_NAME]));
-
 if (!is_object($cookie)
     || !property_exists($cookie, 'sign')
     || !property_exists($cookie, 'login_type')) {
@@ -77,5 +76,5 @@ $_SESSION['username'] = $user['email'];
 $_SESSION['UID'] = $user['id'];
 $_SESSION['name'] = $user['name'];
 $_SESSION['usertype'] = $user['userType'];
-$_SESSION['loginType'] = $VENDASTA_SSO_LOGIN_TYPE;
+$_SESSION['loginType'] = $_COOKIE['login-type'];
 $_SESSION['account_id'] = $_COOKIE['account_id'];
