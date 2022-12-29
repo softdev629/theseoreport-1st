@@ -16,7 +16,7 @@ if(array_key_exists('account_id', $_GET)) {
 
   $provider = new \League\OAuth2\Client\Provider\GenericProvider([
       'urlResourceOwnerDetails' => $oauth_resource_owner_details_endpoint_url,
-      'urlAuthorize' => "$authorization_url?account_id=".$_COOKIE['account_id'],
+      'urlAuthorize' => "$authorization_url?account_id=".$_GET['account_id'],
       'urlAccessToken' => $oauth_access_token_endpoint_url,
       'clientSecret' => $oauth_client_secret,
       'clientId' => $oauth_client_id,
@@ -27,7 +27,7 @@ if(array_key_exists('account_id', $_GET)) {
       'state' => $ACCOUNT_ID,
       'scope' => ['profile'],
   ]);
-
+die($authorizationUrl);
   header("Location: $authorizationUrl");
 
   exit;
