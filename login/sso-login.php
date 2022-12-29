@@ -27,7 +27,7 @@ try {
         'expiry' => $access_token->getExpires(),
         'login_type' => $VENDASTA_SSO_LOGIN_TYPE,
     ])), $access_token->getExpires(), '', $_SERVER['HTTP_HOST'], true, true);
-die('asdf');
+
     $client = new \GuzzleHttp\Client();
 
     $response = $client->get($oauth_resource_owner_details_endpoint_url, ['headers' => [
