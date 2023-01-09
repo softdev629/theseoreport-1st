@@ -47,13 +47,13 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit') {
   $login_total = $_POST['login_total'];
 
   for ($m = 1; $m <= $login_total; $m++) {
-    $link = $_POST['link' . $m];
+    $credentialLink = $_POST['link' . $m];
     $projectname = $_POST['username' . $m];
     $password = $_POST['password' . $m];
     $comments = $_POST['comments' . $m];
     $credentialsname = $_POST['credentialsname' . $m];
 
-    mysqli_query($link, "insert into rl_projects_credentials(pid,credentialsName,credentialsType,credentialsLink,credentialsUserName,credentialsPassword,comments,dateAdded,dateModify) values('$pid','$credentialsname','$credentialsname','$link','$projectname','$password','$comments','" . $today . "','" . $today . "')");
+    mysqli_query($link, "insert into rl_projects_credentials(pid,credentialsName,credentialsType,credentialsLink,credentialsUserName,credentialsPassword,comments,dateAdded,dateModify) values('$pid','$credentialsname','$credentialsname','$credentialLink','$projectname','$password','$comments','" . $today . "','" . $today . "')");
   }
 
   header("location: project.php?mode=show&msg=edited");
@@ -64,6 +64,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
   mysqli_query($link, "delete from rl_projects where id='" . $_REQUEST['pid'] . "'");
   mysqli_query($link, "delete from rl_projects_assign where pid='" . $_REQUEST['pid'] . "'");
   mysqli_query($link, "delete from rl_report where pid='" . $_REQUEST['pid'] . "'");
+  mysqli_query($link, "delete from rl_projects_credentials where pid='" . $_REQUEST['pid'] . "'");
   header("location: project.php?mode=show&msg=deleted");
 }
 
@@ -270,23 +271,23 @@ if (isset($_GET['msg']) && $_GET['msg'] == 'exist') {
             </table>
           </div>
           <!--<footer class="panel-footer">
-                      <div class="row">
+                            <div class="row">
         
-                        <div class="col-sm-5 text-center">
-                          <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
-                        </div>
-                        <div class="col-sm-7 text-right text-center-xs">                
-                          <ul class="pagination pagination-sm m-t-none m-b-none">
-                            <li><a href=""><i class="fa fa-chevron-left"></i></a></li>
-                            <li><a href="">1</a></li>
-                            <li><a href="">2</a></li>
-                            <li><a href="">3</a></li>
-                            <li><a href="">4</a></li>
-                            <li><a href=""><i class="fa fa-chevron-right"></i></a></li>
-                          </ul>
-                        </div>
-                      </div>
-                    </footer>-->
+                              <div class="col-sm-5 text-center">
+                                <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
+                              </div>
+                              <div class="col-sm-7 text-right text-center-xs">                
+                                <ul class="pagination pagination-sm m-t-none m-b-none">
+                                  <li><a href=""><i class="fa fa-chevron-left"></i></a></li>
+                                  <li><a href="">1</a></li>
+                                  <li><a href="">2</a></li>
+                                  <li><a href="">3</a></li>
+                                  <li><a href="">4</a></li>
+                                  <li><a href=""><i class="fa fa-chevron-right"></i></a></li>
+                                </ul>
+                              </div>
+                            </div>
+                          </footer>-->
         </div>
         <?PHP } ?>
 
@@ -767,7 +768,6 @@ if (isset($_GET['msg']) && $_GET['msg'] == 'exist') {
     <script>
     $('#demo').dcalendarpicker();
     $('#calendar-demo').dcalendar(); //creates the calendar
-
     $('#demo1').dcalendarpicker();
     $('#calendar-demo1').dcalendar(); //creates the calendar
     </script>
