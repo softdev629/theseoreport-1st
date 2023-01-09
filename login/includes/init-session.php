@@ -1,9 +1,11 @@
 <?php
 
 $cookie = json_decode(base64_decode($_COOKIE[$COOKIE_NAME]));
-if (!is_object($cookie)
+if (
+    !is_object($cookie)
     || !property_exists($cookie, 'sign')
-    || !property_exists($cookie, 'login_type')) {
+    || !property_exists($cookie, 'login_type')
+) {
     throw new Exception('something-went-wrong:malformed-cookie');
 }
 
@@ -33,10 +35,12 @@ if ($cookie->login_type == $VENDASTA_SSO_LOGIN_TYPE) {
 
     $client = new \GuzzleHttp\Client();
 
-    $response = $client->get($oauth_resource_owner_details_endpoint_url, ['headers' => [
-        'Authorization' => "Bearer {$cookie->value}",
-    ]]);
-    
+    $response = $client->get($oauth_resource_owner_details_endpoint_url, [
+        'headers' => [
+            'Authorization' => "Bearer {$cookie->value}",
+        ]
+    ]);
+
     $data = json_decode($response->getBody());
 
     $data_from_token_id = json_decode(base64_decode(explode('.', $cookie->value)[1]));
@@ -45,10 +49,12 @@ if ($cookie->login_type == $VENDASTA_SSO_LOGIN_TYPE) {
         throw new Exception('something-went-wrong:subs-do-not-match');
     }
 
-    if (is_null($data)
+    if (
+        is_null($data)
         || !is_object($data)
         || !property_exists($data, 'name')
-        || !property_exists($data, 'created_at')) {
+        || !property_exists($data, 'created_at')
+    ) {
         throw new Exception('something-went-wrong:api-bad-response');
     }
 
@@ -76,5 +82,5 @@ $_SESSION['username'] = $user['email'];
 $_SESSION['UID'] = $user['id'];
 $_SESSION['name'] = $user['name'];
 $_SESSION['usertype'] = $user['userType'];
-$_SESSION['loginType'] = $_COOKIE['login-type'];
+$_SESSION['loginType'] = $cookie->login_type;
 $_SESSION['account_id'] = $_COOKIE['account_id'];
