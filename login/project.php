@@ -8,76 +8,78 @@ require_once __DIR__ . '/includes/check-session.php';
 require_once __DIR__ . '/includes/init-session.php';
 
 if ($_SESSION['usertype'] != 'Administrator') {
-  header("Location: $DASHBOARD_PAGE_PATH"."?account_id=".$_SESSION['account_id']);
-    exit;
+  header("Location: $DASHBOARD_PAGE_PATH" . "?account_id=" . $_SESSION['account_id']);
+  exit;
 }
 
 ?>
 
 <?PHP
 if (isset($_GET['action']) && $_GET['action'] == 'add') {
-    mysqli_query($link, "insert into rl_projects(cid,projectName,websiteUrl,startDate,keywords,package,notes,status,stopstatus,stopdate,dateAdded,dateModify,createdBy) values('" . $_POST['cid'] . "','" . $_POST['pname'] . "','" . $_POST['url'] . "','" . $_POST['startdate'] . "','" . $_POST['keywords'] . "','" . $_POST['package'] . "','" . $_POST['comments'] . "','1','" . $_POST['stopstatus'] . "','" . $_POST['stopdate'] . "','" . $today . "','" . $today . "','" . $_SESSION['UID'] . "')");
+  mysqli_query($link, "insert into rl_projects(cid,projectName,websiteUrl,startDate,keywords,package,notes,status,stopstatus,stopdate,dateAdded,dateModify,createdBy) values('" . $_POST['cid'] . "','" . $_POST['pname'] . "','" . $_POST['url'] . "','" . $_POST['startdate'] . "','" . $_POST['keywords'] . "','" . $_POST['package'] . "','" . $_POST['comments'] . "','1','" . $_POST['stopstatus'] . "','" . $_POST['stopdate'] . "','" . $today . "','" . $today . "','" . $_SESSION['UID'] . "')");
 
-    $pid = mysqli_insert_id();
-    echo $pid;
-    $login_total = $_POST['login_total'];
-    echo $login_total;
+  $pid = mysqli_insert_id($link);
+  echo $pid;
+  $login_total = $_POST['login_total'];
+  echo $login_total;
 
-    for ($m = 1; $m <= $login_total; $m++) {
-        $link = $_POST['link' . $m];
-        $projectname = $_POST['username' . $m];
-        $password = $_POST['password' . $m];
-        $comments = $_POST['comments' . $m];
-        $credentialsname = $_POST['credentialsname' . $m];
+  for ($m = 1; $m <= $login_total; $m++) {
+    $credentialLink = $_POST['link' . $m];
+    $projectname = $_POST['username' . $m];
+    $password = $_POST['password' . $m];
+    $comments = $_POST['comments' . $m];
+    $credentialsname = $_POST['credentialsname' . $m];
 
-        mysqli_query($link, "insert into rl_projects_credentials(pid,credentialsName,credentialsType,credentialsLink,credentialsUserName,credentialsPassword,comments,dateAdded,dateModify) values('$pid','$credentialsname','$credentialsname','$link','$projectname','$password','$comments','" . $today . "','" . $today . "')");
-    }
+    mysqli_query($link, "insert into rl_projects_credentials (pid,credentialsName,credentialsType,credentialsLink,credentialsUserName,credentialsPassword,comments,dateAdded,dateModify) values('$pid','$credentialsname','$credentialsname','$credentialLink','$projectname','$password','$comments','" . $today . "','" . $today . "')");
+  }
 
-    header("location: project.php?mode=show&msg=added");
+  header("location: project.php?mode=show&msg=added");
 }
 
 if (isset($_GET['action']) && $_GET['action'] == 'edit') {
 
 
-    mysqli_query($link, "update rl_projects set projectName='" . $_POST['pname'] . "',websiteUrl='" . $_POST['url'] . "',startDate='" . $_POST['startdate'] . "',keywords='" . $_POST['keywords'] . "',package='" . $_POST['package'] . "',notes='" . $_POST['comments'] . "',stopstatus='" . $_POST['stopstatus'] . "',stopdate='" . $_POST['stopdate'] . "',dateModify='$today' where id='" . $_POST['pid'] . "'");
+  mysqli_query($link, "update rl_projects set projectName='" . $_POST['pname'] . "',websiteUrl='" . $_POST['url'] . "',startDate='" . $_POST['startdate'] . "',keywords='" . $_POST['keywords'] . "',package='" . $_POST['package'] . "',notes='" . $_POST['comments'] . "',stopstatus='" . $_POST['stopstatus'] . "',stopdate='" . $_POST['stopdate'] . "',dateModify='$today' where id='" . $_POST['pid'] . "'");
 
-    mysqli_query($link, "delete from rl_projects_credentials where pid=" . $_POST['pid']);
+  mysqli_query($link, "delete from rl_projects_credentials where pid=" . $_POST['pid']);
 
-    $pid = $_POST['pid'];
-    $login_total = $_POST['login_total'];
+  $pid = $_POST['pid'];
+  $login_total = $_POST['login_total'];
 
-    for ($m = 1; $m <= $login_total; $m++) {
-        $link = $_POST['link' . $m];
-        $projectname = $_POST['username' . $m];
-        $password = $_POST['password' . $m];
-        $comments = $_POST['comments' . $m];
-        $credentialsname = $_POST['credentialsname' . $m];
+  for ($m = 1; $m <= $login_total; $m++) {
+    $link = $_POST['link' . $m];
+    $projectname = $_POST['username' . $m];
+    $password = $_POST['password' . $m];
+    $comments = $_POST['comments' . $m];
+    $credentialsname = $_POST['credentialsname' . $m];
 
-        mysqli_query($link, "insert into rl_projects_credentials(pid,credentialsName,credentialsType,credentialsLink,credentialsUserName,credentialsPassword,comments,dateAdded,dateModify) values('$pid','$credentialsname','$credentialsname','$link','$projectname','$password','$comments','" . $today . "','" . $today . "')");
-    }
+    mysqli_query($link, "insert into rl_projects_credentials(pid,credentialsName,credentialsType,credentialsLink,credentialsUserName,credentialsPassword,comments,dateAdded,dateModify) values('$pid','$credentialsname','$credentialsname','$link','$projectname','$password','$comments','" . $today . "','" . $today . "')");
+  }
 
-    header("location: project.php?mode=show&msg=edited");
+  header("location: project.php?mode=show&msg=edited");
 }
 
 
 if (isset($_GET['action']) && $_GET['action'] == 'delete') {
-    mysqli_query($link, "delete from rl_projects where id='" . $_REQUEST['pid'] . "'");
-    header("location: project.php?mode=show&msg=deleted");
+  mysqli_query($link, "delete from rl_projects where id='" . $_REQUEST['pid'] . "'");
+  mysqli_query($link, "delete from rl_projects_assign where pid='" . $_REQUEST['pid'] . "'");
+  mysqli_query($link, "delete from rl_report where pid='" . $_REQUEST['pid'] . "'");
+  header("location: project.php?mode=show&msg=deleted");
 }
 
 
 
 if (isset($_GET['msg']) && $_GET['msg'] == 'added') {
-    $message = 'Record Added Successfully.';
+  $message = 'Record Added Successfully.';
 }
 if (isset($_GET['msg']) && $_GET['msg'] == 'edited') {
-    $message = 'Record Edited Successfully.';
+  $message = 'Record Edited Successfully.';
 }
 if (isset($_GET['msg']) && $_GET['msg'] == 'deleted') {
-    $message = 'Record Delete Successfully.';
+  $message = 'Record Delete Successfully.';
 }
 if (isset($_GET['msg']) && $_GET['msg'] == 'exist') {
-    $message = 'Username already exist.';
+  $message = 'Username already exist.';
 }
 ?>
 
@@ -120,24 +122,20 @@ if (isset($_GET['msg']) && $_GET['msg'] == 'exist') {
                 <input type="hidden" name="mode" value="add">
                 <button type="submit" class="btn btn-info">Add New Project</button>
               </form>
-
             </div>
-
             <div class="col-sm-4" style="margin-bottom:20px;">
               <div class="form-group">
                 <form name="search1" method="get" action="project.php">
-
                   <input type="hidden" name="mode" value="show">
                   <input type="hidden" name="searchkeyword" value="<?PHP echo @$_REQUEST['searchkeyword'] ?>">
-
                   <select class="input-sm form-control w-sm inline v-middle" name="clientid" style="width:225px;">
                     <option value=''> &nbsp; &nbsp; &nbsp; - - Select Client Name - - </option>
                     <option value=''> All </option>
                     <?PHP 
-		  $cli=mysqli_query($link,"select * from rl_login where userType='Client'");
-		  while($cli_data=mysqli_fetch_array($cli))
-		  {
-		  ?>
+             $cli=mysqli_query($link,"select * from rl_login where userType='Client'");
+             while($cli_data=mysqli_fetch_array($cli))
+             {
+             ?>
                     <option value="<?PHP echo $cli_data['id']; ?>" <?PHP if(@$_REQUEST['clientid']==$cli_data['id']) {
                       ?> selected
                       <?PHP } ?>>
@@ -149,11 +147,8 @@ if (isset($_GET['msg']) && $_GET['msg'] == 'exist') {
                   <button class="btn btn-sm btn-default">Go</button>
                 </form>
               </div>
-
             </div>
-
             <form name="search2" method="get" action="project.php">
-
               <input type="hidden" name="mode" value="show">
               <input type="hidden" name="clientid" value="<?PHP echo @$_REQUEST['clientid'] ?>">
               <div class="col-sm-3">
@@ -166,12 +161,12 @@ if (isset($_GET['msg']) && $_GET['msg'] == 'exist') {
                 </div>
               </div>
             </form>
-          </div><?php */ ?>
+          </div><?php */?>
           <div class="table-responsive">
             <?PHP
-                            $projecttype = @$_REQUEST['usertype'];
-                            $searchkeyword = @$_REQUEST['searchkeyword'];
-                            ?>
+              $projecttype = @$_REQUEST['usertype'];
+              $searchkeyword = @$_REQUEST['searchkeyword'];
+              ?>
 
 
             <div align="center" style="margin:15px;" class="text-success">
@@ -198,45 +193,45 @@ if (isset($_GET['msg']) && $_GET['msg'] == 'exist') {
               </thead>
               <tbody>
                 <?PHP
-                                    $k = @$_REQUEST['orderby'];
-                                    if ($k == '') {
-                                        $k = "DESC";
-                                    }
+                  $k = @$_REQUEST['orderby'];
+                  if ($k == '') {
+                    $k = "DESC";
+                  }
 
-                                    $orderfield = @$_REQUEST['orderfield'];
-                                    if ($orderfield == '') {
-                                        $orderfield = "id";
-                                    }
+                  $orderfield = @$_REQUEST['orderfield'];
+                  if ($orderfield == '') {
+                    $orderfield = "id";
+                  }
 
-                                    $qq = "select * from rl_projects where stopstatus=1 ";
+                  $qq = "select * from rl_projects where stopstatus=1 ";
 
-                                    if (@$_REQUEST['clientid'] != '') {
-                                        $qq .= " and cid='" . $_REQUEST['clientid'] . "'";
-                                    }
+                  if (@$_REQUEST['clientid'] != '') {
+                    $qq .= " and cid='" . $_REQUEST['clientid'] . "'";
+                  }
 
-                                    if (@$_REQUEST['searchkeyword']) {
-                                        $qq .= " and (projectName LIKE '%" . $_REQUEST['searchkeyword'] . "%' OR websiteUrl LIKE '%" . $_REQUEST['searchkeyword'] . "%' OR startDate LIKE '%" . $_REQUEST['searchkeyword'] . "%' )";
-                                    }
+                  if (@$_REQUEST['searchkeyword']) {
+                    $qq .= " and (projectName LIKE '%" . $_REQUEST['searchkeyword'] . "%' OR websiteUrl LIKE '%" . $_REQUEST['searchkeyword'] . "%' OR startDate LIKE '%" . $_REQUEST['searchkeyword'] . "%' )";
+                  }
 
-                                    $qq .= " ORDER BY $orderfield $k";
+                  $qq .= " ORDER BY $orderfield $k";
 
-                                    //echo $qq;
+                  //echo $qq;
+                
+                  $project = mysqli_query($link, $qq);
+                  $i = 1;
+                  while ($project_data = @mysqli_fetch_array($project)) {
+                    $client = mysqli_query($link, "select * from rl_login where id='" . $project_data['cid'] . "'");
+                    $client_data = mysqli_fetch_array($client);
 
-                                    $project = mysqli_query($link, $qq);
-                                    $i = 1;
-                                    while ($project_data = @mysqli_fetch_array($project)) {
-                                        $client = mysqli_query($link, "select * from rl_login where id='" . $project_data['cid'] . "'");
-                                        $client_data = mysqli_fetch_array($client);
+                    $pack = mysqli_query($link, "select * from rl_package where id='" . $project_data['package'] . "'");
+                    $pack_data = mysqli_fetch_array($pack);
 
-                                        $pack = mysqli_query($link, "select * from rl_package where id='" . $project_data['package'] . "'");
-                                        $pack_data = mysqli_fetch_array($pack);
+                    $created = mysqli_query($link, "select * from rl_login where id='" . $project_data['createdBy'] . "'");
+                    $created_data = mysqli_fetch_array($created);
 
-                                        $created = mysqli_query($link, "select * from rl_login where id='" . $project_data['createdBy'] . "'");
-                                        $created_data = mysqli_fetch_array($created);
-
-                                        $newdate = explode('-', $project_data['startDate']);
-                                        $newstartdate = $newdate[1] . '-' . $newdate[2] . '-' . $newdate[0];
-                                    ?>
+                    $newdate = explode('-', $project_data['startDate']);
+                    $newstartdate = $newdate[1] . '-' . $newdate[2] . '-' . $newdate[0];
+                    ?>
                 <tr>
                   <td>
                     <?PHP echo $i; ?>.
@@ -269,29 +264,29 @@ if (isset($_GET['msg']) && $_GET['msg'] == 'exist') {
                   </td>
                 </tr>
                 <?PHP
-                                        $i = $i + 1;
-                                    } ?>
+                    $i = $i + 1;
+                  } ?>
               </tbody>
             </table>
           </div>
           <!--<footer class="panel-footer">
-      <div class="row">
+                      <div class="row">
         
-        <div class="col-sm-5 text-center">
-          <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
-        </div>
-        <div class="col-sm-7 text-right text-center-xs">                
-          <ul class="pagination pagination-sm m-t-none m-b-none">
-            <li><a href=""><i class="fa fa-chevron-left"></i></a></li>
-            <li><a href="">1</a></li>
-            <li><a href="">2</a></li>
-            <li><a href="">3</a></li>
-            <li><a href="">4</a></li>
-            <li><a href=""><i class="fa fa-chevron-right"></i></a></li>
-          </ul>
-        </div>
-      </div>
-    </footer>-->
+                        <div class="col-sm-5 text-center">
+                          <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
+                        </div>
+                        <div class="col-sm-7 text-right text-center-xs">                
+                          <ul class="pagination pagination-sm m-t-none m-b-none">
+                            <li><a href=""><i class="fa fa-chevron-left"></i></a></li>
+                            <li><a href="">1</a></li>
+                            <li><a href="">2</a></li>
+                            <li><a href="">3</a></li>
+                            <li><a href="">4</a></li>
+                            <li><a href=""><i class="fa fa-chevron-right"></i></a></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </footer>-->
         </div>
         <?PHP } ?>
 
@@ -313,9 +308,9 @@ if (isset($_GET['msg']) && $_GET['msg'] == 'exist') {
 
                   <select class="form-control m-bot15" name="cid">
                     <?PHP
-                                            $cli = mysqli_query($link, "select * from rl_login where userType='Client'");
-                                            while ($cli_data = mysqli_fetch_array($cli)) {
-                                            ?>
+                      $cli = mysqli_query($link, "select * from rl_login where userType='Client'");
+                      while ($cli_data = mysqli_fetch_array($cli)) {
+                        ?>
                     <option value="<?PHP echo $cli_data['id']; ?>" <?PHP if (@$_REQUEST['clientid']==$cli_data['id']) {
                       ?> selected
                       <?PHP } ?>>
@@ -382,9 +377,9 @@ if (isset($_GET['msg']) && $_GET['msg'] == 'exist') {
                   <select class="form-control m-bot15" name="package">
                     <option value=""> - - Select Package - - </option>
                     <?PHP
-                                            $pack = mysqli_query($link, "select * from rl_package order by name ASC");
-                                            while ($pack_data = mysqli_fetch_array($pack)) {
-                                            ?>
+                      $pack = mysqli_query($link, "select * from rl_package order by name ASC");
+                      while ($pack_data = mysqli_fetch_array($pack)) {
+                        ?>
                     <option value="<?PHP echo $pack_data['id']; ?>">
                       <?PHP echo ucwords($pack_data['name']); ?>
                     </option>
@@ -418,10 +413,10 @@ if (isset($_GET['msg']) && $_GET['msg'] == 'exist') {
                 </div>
 
                 <?PHP
-                                    $credential = mysqli_query($link, "select * from rl_projects_credentials_types order by priority ASC");
-                                    $k = 1;
-                                    while ($credential_data = mysqli_fetch_array($credential)) {
-                                    ?>
+                  $credential = mysqli_query($link, "select * from rl_projects_credentials_types order by priority ASC");
+                  $k = 1;
+                  while ($credential_data = mysqli_fetch_array($credential)) {
+                    ?>
                 <div style="background:#eef9f0; padding:10px; margin-bottom:40px; border:#093 1px solid">
                   <div class="form-group">
                     <div class="col-lg-12">
@@ -470,9 +465,9 @@ if (isset($_GET['msg']) && $_GET['msg'] == 'exist') {
                   </div>
                 </div>
                 <?PHP
-                                        $k = $k + 1;
-                                    }
-                                    ?>
+                    $k = $k + 1;
+                  }
+                  ?>
                 <input type="hidden" class="form-control" name="login_total" value="<?PHP echo $k - 1; ?>">
 
               </div>
@@ -521,9 +516,9 @@ if (isset($_GET['msg']) && $_GET['msg'] == 'exist') {
         <?PHP if (isset($_REQUEST['mode']) && $_REQUEST['mode'] == 'edit') { ?>
 
         <?PHP
-                    $project = mysqli_query($link, "select * from rl_projects where id='" . $_POST['pid'] . "'");
-                    $project_data = mysqli_fetch_array($project);
-                    ?>
+          $project = mysqli_query($link, "select * from rl_projects where id='" . $_POST['pid'] . "'");
+          $project_data = mysqli_fetch_array($project);
+          ?>
         <section class="panel">
           <header class="panel-heading">
             Edit Project
@@ -539,9 +534,9 @@ if (isset($_GET['msg']) && $_GET['msg'] == 'exist') {
                 <label class="col-sm-3 control-label col-lg-3" for="inputSuccess">Client Name</label>
                 <div class="col-lg-6">
                   <?PHP
-                                        $cli = mysqli_query($link, "select * from rl_login where userType='Client' and id='" . $_POST['cid'] . "'");
-                                        $cli_data = mysqli_fetch_array($cli);
-                                        ?>
+                    $cli = mysqli_query($link, "select * from rl_login where userType='Client' and id='" . $_POST['cid'] . "'");
+                    $cli_data = mysqli_fetch_array($cli);
+                    ?>
                   <input type="text" class="form-control input100"
                     value="<?PHP echo $cli_data['name']; ?> [<?PHP echo $cli_data['email']; ?>]" readonly>
                   <input type="hidden" class="form-control input100" value="<?PHP echo $_POST['pid']; ?>" name="pid">
@@ -607,9 +602,9 @@ if (isset($_GET['msg']) && $_GET['msg'] == 'exist') {
                   <select class="form-control m-bot15" name="package">
                     <option value=""> - - Select Package - - </option>
                     <?PHP
-                                            $pack = mysqli_query($link, "select * from rl_package order by name ASC");
-                                            while ($pack_data = mysqli_fetch_array($pack)) {
-                                            ?>
+                      $pack = mysqli_query($link, "select * from rl_package order by name ASC");
+                      while ($pack_data = mysqli_fetch_array($pack)) {
+                        ?>
                     <option value="<?PHP echo $pack_data['id']; ?>" <?PHP if
                       ($project_data['package']==$pack_data['id']) { ?> selected
                       <?PHP } ?>>
@@ -646,13 +641,13 @@ if (isset($_GET['msg']) && $_GET['msg'] == 'exist') {
                 </div>
 
                 <?PHP
-                                    $credential = mysqli_query($link, "select * from rl_projects_credentials_types order by priority ASC");
-                                    $k = 1;
-                                    while ($credential_data = mysqli_fetch_array($credential)) {
-                                        $limt = $k - 1;
-                                        $sql = mysqli_query($link, "select * from rl_projects_credentials where pid='" . $_POST['pid'] . "' limit $limt,1");
-                                        $sql_data = mysqli_fetch_array($sql);
-                                    ?>
+                  $credential = mysqli_query($link, "select * from rl_projects_credentials_types order by priority ASC");
+                  $k = 1;
+                  while ($credential_data = mysqli_fetch_array($credential)) {
+                    $limt = $k - 1;
+                    $sql = mysqli_query($link, "select * from rl_projects_credentials where pid='" . $_POST['pid'] . "' limit $limt,1");
+                    $sql_data = mysqli_fetch_array($sql);
+                    ?>
                 <div style="background:#eef9f0; padding:10px; margin-bottom:40px; border:#093 1px solid">
                   <div class="form-group">
                     <div class="col-lg-12">
@@ -704,9 +699,9 @@ if (isset($_GET['msg']) && $_GET['msg'] == 'exist') {
                   </div>
                 </div>
                 <?PHP
-                                        $k = $k + 1;
-                                    }
-                                    ?>
+                    $k = $k + 1;
+                  }
+                  ?>
                 <input type="hidden" class="form-control" name="login_total" value="<?PHP echo $k - 1; ?>">
 
               </div>
@@ -730,10 +725,10 @@ if (isset($_GET['msg']) && $_GET['msg'] == 'exist') {
                 </div>
               </div>
               <?PHP
-                                if ($project_data['stopdate'] == "0000-00-00") {
-                                    $project_data['stopdate'] = '';
-                                }
-                                ?>
+                if ($project_data['stopdate'] == "0000-00-00") {
+                  $project_data['stopdate'] = '';
+                }
+                ?>
               <div class="form-group">
                 <label class="col-sm-3 control-label col-lg-3">Stop Date</label>
                 <div class="col-lg-6">

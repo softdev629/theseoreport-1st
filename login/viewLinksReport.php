@@ -8,8 +8,8 @@ require_once __DIR__ . '/includes/check-session.php';
 require_once __DIR__ . '/includes/init-session.php';
 
 if ($_SESSION['usertype'] != 'Client') {
-  header("Location: $DASHBOARD_PAGE_PATH"."?account_id=".$_SESSION['account_id']);
-    exit;
+  header("Location: $DASHBOARD_PAGE_PATH" . "?account_id=" . $_SESSION['account_id']);
+  exit;
 }
 
 ?>
@@ -91,8 +91,8 @@ if ($_SESSION['usertype'] != 'Client') {
         <div class="panel panel-default">
           <div class="panel-heading">Linking Reports</div>
           <?PHP
-                    if ($_SESSION['usertype'] == 'Client') {
-                    ?>
+          if ($_SESSION['usertype'] == 'Client') {
+            ?>
           <form name="search1" method="get">
 
 
@@ -103,28 +103,13 @@ if ($_SESSION['usertype'] != 'Client') {
                   onchange="getProjectDate('findreport1.php?pid='+this.value)">
                   <option value=''> &nbsp; &nbsp; &nbsp; - - &nbsp; Select Project Name &nbsp; - - </option>
                   <?PHP
-                                        $cli = mysqli_query($link, "select * from rl_projects where cid='" . $_SESSION['UID'] . "' order by projectName ASC");
-                                        while ($cli_data = mysqli_fetch_array($cli)) {
-                                        ?>
+                    $cli = mysqli_query($link, "SELECT * FROM rl_projects WHERE cid='" . $_SESSION['UID'] . "' UNION SELECT rl_projects.* FROM rl_projects, rl_projects_assign WHERE rl_projects.id = rl_projects_assign.pid AND rl_projects_assign.cid='" . $_SESSION['UID'] . "' ORDER BY projectName");
+                    while ($cli_data = mysqli_fetch_array($cli)) {
+                      ?>
                   <option value="<?PHP echo $cli_data['id']; ?>">
                     <?PHP echo $cli_data['projectName']; ?>
                   </option>
                   <?PHP } ?>
-
-
-                  <?PHP
-                                        $sql = mysqli_query($link, "select * from rl_projects_assign where cid='" . $_SESSION['UID'] . "'");
-                                        while ($sql_data = mysqli_fetch_array($sql)) {
-                                            $cli = mysqli_query($link, "select * from rl_projects where id='" . $sql_data['pid'] . "'");
-                                            $cli_data = mysqli_fetch_array($cli);
-                                        ?>
-                  <option value="<?PHP echo $cli_data['id']; ?>">
-                    <?PHP echo $cli_data['projectName']; ?>
-                  </option>
-                  <?PHP } ?>
-
-
-
                 </select>
 
               </div>
