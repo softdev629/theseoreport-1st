@@ -1,4 +1,4 @@
-# Project Name
+# SEO Report 1.0
 
 > This is SEO Report Project (version 1).
 > Live demo [_here_](https://www.vendasta.com). <!-- If you have the project hosted somewhere, include the link here. -->
