@@ -86,10 +86,4 @@ Give credit here.
 
 ## Contact
 
-Created by [@violetstar701](https://www.flynerd.pl/) - feel free to contact me!
-
-<!-- Optional -->
-<!-- ## License -->
-<!-- This project is open source and available under the [... License](). -->
-
-<!-- You don't have to include all sections - just the one's relevant to your project -->
+Created by [Bohdan](mailto:drozd.dev@outlook.com) - feel free to contact me!
